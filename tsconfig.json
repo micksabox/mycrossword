@@ -8,7 +8,7 @@
     "paths": {
       "~/*": ["./lib/*"]
     },
-    "types": ["@testing-library/jest-dom"],
+    "types": [],
     "esModuleInterop": true,
 
     /* Bundler mode */
@@ -28,3 +28,4 @@
   "include": ["src", "lib"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
+
