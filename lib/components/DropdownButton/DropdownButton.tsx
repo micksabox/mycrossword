@@ -16,9 +16,16 @@ interface DropdownButtonProps {
   id?: string;
   menu: DropdownMenuItem[];
   text: string;
+  disabled?: boolean;
 }
 
-function DropdownButton({ className, id, menu, text }: DropdownButtonProps) {
+function DropdownButton({
+  className,
+  id,
+  menu,
+  text,
+  disabled,
+}: DropdownButtonProps) {
   if (menu.length < 2) {
     throw new Error('DropdownButton should have at least 2 menu items');
   }
@@ -84,6 +91,7 @@ function DropdownButton({ className, id, menu, text }: DropdownButtonProps) {
         onClick={toggleMenuExpanded}
         ref={buttonRef}
         type="button"
+        disabled={disabled}
       >
         <span>{text}</span>
         <CaretDownIcon className={bem('DropdownButton__dropdownButtonIcon')} />
@@ -99,7 +107,7 @@ function DropdownButton({ className, id, menu, text }: DropdownButtonProps) {
           <li key={item.text}>
             <button
               className={bem('DropdownButton__menuItem')}
-              disabled={item.disabled}
+              disabled={disabled || item.disabled}
               onClick={() => {
                 item.onClick();
                 setMenuExpanded(false);
@@ -116,3 +124,4 @@ function DropdownButton({ className, id, menu, text }: DropdownButtonProps) {
 }
 
 export default React.memo(DropdownButton);
+

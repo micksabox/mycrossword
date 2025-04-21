@@ -42,6 +42,10 @@ interface CrosswordProps {
   saveGrid?: (value: GuessGrid | ((val: GuessGrid) => GuessGrid)) => void;
   stickyClue: 'always' | 'never' | 'auto';
   onClueHashCheckResult?: (clueId: string, isValid: boolean) => void;
+  disableAllReveals?: boolean;
+  disableAnagram?: boolean;
+  disableLetterChecks?: boolean;
+  disableGridChecks?: boolean;
 }
 
 export default function Crossword({
@@ -57,6 +61,10 @@ export default function Crossword({
   saveGrid,
   stickyClue,
   onClueHashCheckResult,
+  disableAllReveals = false,
+  disableAnagram = false,
+  disableLetterChecks = false,
+  disableGridChecks = false,
 }: CrosswordProps) {
   const bem = getBem('Crossword');
   const [guessGrid, setGuessGrid] = useLocalStorage<GuessGrid>(
@@ -335,6 +343,10 @@ export default function Crossword({
           setGuessGrid={saveGrid ?? setGuessGrid}
           solutionsAvailable={data.solutionAvailable}
           selectedClueHasHash={!!selectedClue?.solutionPoseidonHash}
+          disableAllReveals={disableAllReveals}
+          disableAnagram={disableAnagram}
+          disableLetterChecks={disableLetterChecks}
+          disableGridChecks={disableGridChecks}
         />
       </div>
       <Clues

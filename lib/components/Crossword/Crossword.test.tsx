@@ -340,3 +340,77 @@ test('calls onClueHashCheckResult with correct value when Check Clue Hash is cli
   expect(onHashCheckResultMock).toHaveBeenCalledWith(testClueIdWithHash, true);
 });
 
+test('disables all reveals when disableAllReveals is true', () => {
+  render(
+    <Crossword
+      allowedHtmlTags={DEFAULT_HTML_TAGS}
+      allowMissingSolutions={false}
+      cellMatcher={DEFAULT_CELL_MATCHER}
+      data={validData}
+      id="test"
+      stickyClue="auto"
+      disableAllReveals={true}
+    />,
+  );
+
+  const revealButtons = screen.queryAllByRole('button', { name: /reveal/i });
+  revealButtons.forEach((button) => {
+    expect(button).toBeDisabled();
+  });
+});
+
+test('disables anagram helper when disableAnagram is true', () => {
+  render(
+    <Crossword
+      allowedHtmlTags={DEFAULT_HTML_TAGS}
+      allowMissingSolutions={false}
+      cellMatcher={DEFAULT_CELL_MATCHER}
+      data={validData}
+      id="test"
+      stickyClue="auto"
+      disableAnagram={true}
+    />,
+  );
+
+  const anagramButton = screen.queryByRole('button', { name: /anagram/i });
+  expect(anagramButton).toBeDisabled();
+});
+
+test('disables letter checks when disableLetterChecks is true', () => {
+  render(
+    <Crossword
+      allowedHtmlTags={DEFAULT_HTML_TAGS}
+      allowMissingSolutions={false}
+      cellMatcher={DEFAULT_CELL_MATCHER}
+      data={validData}
+      id="test"
+      stickyClue="auto"
+      disableLetterChecks={true}
+    />,
+  );
+
+  const letterCheckButtons = screen.queryAllByRole('button', {
+    name: /check letter/i,
+  });
+  letterCheckButtons.forEach((button) => {
+    expect(button).toBeDisabled();
+  });
+});
+
+test('disables grid checks when disableGridChecks is true', () => {
+  render(
+    <Crossword
+      allowedHtmlTags={DEFAULT_HTML_TAGS}
+      allowMissingSolutions={false}
+      cellMatcher={DEFAULT_CELL_MATCHER}
+      data={validData}
+      id="test"
+      stickyClue="auto"
+      disableGridChecks={true}
+    />,
+  );
+
+  const gridCheckButton = screen.queryByRole('button', { name: /check grid/i });
+  expect(gridCheckButton).toBeDisabled();
+});
+

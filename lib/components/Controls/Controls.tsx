@@ -27,6 +27,10 @@ interface ControlsProps {
   solutionsAvailable: boolean;
   selectedClueHasHash?: boolean;
   onCheckClueHash?: () => void;
+  disableAllReveals?: boolean;
+  disableAnagram?: boolean;
+  disableLetterChecks?: boolean;
+  disableGridChecks?: boolean;
 }
 
 export default function Controls({
@@ -41,6 +45,10 @@ export default function Controls({
   solutionsAvailable,
   selectedClueHasHash,
   onCheckClueHash,
+  disableAllReveals = false,
+  disableAnagram = false,
+  disableLetterChecks = false,
+  disableGridChecks = false,
 }: ControlsProps) {
   const bem = getBem('Controls');
   const selectedCell = cells.find((cell) => cell.selected);
@@ -84,7 +92,7 @@ export default function Controls({
 
   const checkMenu = [
     {
-      disabled: selectedCell === undefined,
+      disabled: selectedCell === undefined || disableLetterChecks,
       onClick: () => {
         if (selectedCell === undefined) {
           return;
@@ -148,12 +156,16 @@ export default function Controls({
       },
       text: 'Check word',
     },
-    { onClick: () => setShowCheckGridConfirm(true), text: 'Check grid' },
+    {
+      onClick: () => setShowCheckGridConfirm(true),
+      text: 'Check grid',
+      disabled: disableGridChecks,
+    },
   ];
 
   const revealMenu = [
     {
-      disabled: selectedCell === undefined,
+      disabled: selectedCell === undefined || disableAllReveals,
       onClick: () => {
         if (
           selectedCell === undefined ||
@@ -194,7 +206,7 @@ export default function Controls({
       text: 'Reveal letter',
     },
     {
-      disabled: selectedClue === undefined,
+      disabled: selectedClue === undefined || disableAllReveals,
       onClick: () => {
         if (selectedClue === undefined) {
           return;
@@ -240,7 +252,11 @@ export default function Controls({
       },
       text: 'Reveal word',
     },
-    { onClick: () => setShowRevealGridConfirm(true), text: 'Reveal grid' },
+    {
+      onClick: () => setShowRevealGridConfirm(true),
+      text: 'Reveal grid',
+      disabled: disableAllReveals,
+    },
   ];
 
   const clearMenu = [
@@ -401,26 +417,31 @@ export default function Controls({
 
   return (
     <div className={bem('Controls')}>
-      {solutionsAvailable ? (
-        <DropdownButton id="check-control" menu={checkMenu} text="Check" />
-      ) : null}
-      {selectedClueHasHash && onCheckClueHash ? (
-        <Button onClick={onCheckClueHash}>Check Clue Hash</Button>
-      ) : null}
-      {solutionsAvailable ? (
-        <DropdownButton id="reveal-control" menu={revealMenu} text="Reveal" />
-      ) : null}
-      <DropdownButton id="clear-control" menu={clearMenu} text="Clear" />
-      <div className={bem('Controls__buttonContainer')}>
-        <Button
-          ariaLabel="Anagram helper"
-          disabled={selectedClue === undefined}
-          id="anagram-control"
-          onClick={onAnagramHelperClick}
-        >
-          <span />
+      <div className={bem('Controls__buttons')}>
+        <Button disabled={disableAnagram} onClick={onAnagramHelperClick}>
+          Anagram helper
         </Button>
+        {solutionsAvailable && (
+          <DropdownButton
+            menu={revealMenu}
+            text="Reveal"
+            disabled={disableAllReveals}
+          />
+        )}
+        {solutionsAvailable && (
+          <DropdownButton
+            menu={checkMenu}
+            text="Check"
+            disabled={disableGridChecks}
+          />
+        )}
+        {selectedClueHasHash && (
+          <Button onClick={onCheckClueHash || (() => {})}>
+            Check clue hash
+          </Button>
+        )}
       </div>
+      <DropdownButton id="clear-control" menu={clearMenu} text="Clear" />
     </div>
   );
 }
