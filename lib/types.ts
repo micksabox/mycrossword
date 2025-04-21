@@ -14,6 +14,7 @@ export type GuardianClue = {
   position: { x: number; y: number };
   separatorLocations: SeparatorLocationsOptional;
   solution?: string;
+  solutionPoseidonHash?: string;
 };
 
 export type Clue = GuardianClue & {
@@ -115,3 +116,4 @@ export type CellFocus = {
 export type GuessGrid = {
   value: Char[][];
 };
+

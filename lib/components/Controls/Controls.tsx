@@ -25,6 +25,8 @@ interface ControlsProps {
   onComplete?: () => void;
   setGuessGrid: (value: GuessGrid | ((val: GuessGrid) => GuessGrid)) => void;
   solutionsAvailable: boolean;
+  selectedClueHasHash?: boolean;
+  onCheckClueHash?: () => void;
 }
 
 export default function Controls({
@@ -37,6 +39,8 @@ export default function Controls({
   onComplete,
   setGuessGrid,
   solutionsAvailable,
+  selectedClueHasHash,
+  onCheckClueHash,
 }: ControlsProps) {
   const bem = getBem('Controls');
   const selectedCell = cells.find((cell) => cell.selected);
@@ -398,10 +402,13 @@ export default function Controls({
   return (
     <div className={bem('Controls')}>
       {solutionsAvailable ? (
-        <>
-          <DropdownButton id="check-control" menu={checkMenu} text="Check" />
-          <DropdownButton id="reveal-control" menu={revealMenu} text="Reveal" />
-        </>
+        <DropdownButton id="check-control" menu={checkMenu} text="Check" />
+      ) : null}
+      {selectedClueHasHash && onCheckClueHash ? (
+        <Button onClick={onCheckClueHash}>Check Clue Hash</Button>
+      ) : null}
+      {solutionsAvailable ? (
+        <DropdownButton id="reveal-control" menu={revealMenu} text="Reveal" />
       ) : null}
       <DropdownButton id="clear-control" menu={clearMenu} text="Clear" />
       <div className={bem('Controls__buttonContainer')}>
@@ -417,3 +424,4 @@ export default function Controls({
     </div>
   );
 }
+

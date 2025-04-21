@@ -27,6 +27,8 @@ import Controls from '~/components/Controls/Controls';
 import useLocationHash from '~/hooks/useLocationHash/useLocationHash';
 import './Crossword.css';
 
+import { calculateCluePoseidonHash } from '~/utils/hash';
+
 interface CrosswordProps {
   allowedHtmlTags: string[];
   allowMissingSolutions: boolean;
@@ -39,6 +41,7 @@ interface CrosswordProps {
   onComplete?: () => void;
   saveGrid?: (value: GuessGrid | ((val: GuessGrid) => GuessGrid)) => void;
   stickyClue: 'always' | 'never' | 'auto';
+  onClueHashCheckResult?: (clueId: string, isValid: boolean) => void;
 }
 
 export default function Crossword({
@@ -53,6 +56,7 @@ export default function Crossword({
   onComplete,
   saveGrid,
   stickyClue,
+  onClueHashCheckResult,
 }: CrosswordProps) {
   const bem = getBem('Crossword');
   const [guessGrid, setGuessGrid] = useLocalStorage<GuessGrid>(
@@ -218,6 +222,50 @@ export default function Crossword({
     [clues, selectClue, selectCells, cellFocus],
   );
 
+  const handleCheckSelectedClueHash = React.useCallback(
+    (event?: React.MouseEvent<HTMLButtonElement>) => {
+      event?.preventDefault();
+      event?.stopPropagation();
+
+      const clue = clues.find((c) => c.selected);
+      if (!clue || !clue.solutionPoseidonHash) {
+        console.warn(
+          'Attempted to check hash for clue without hash or no clue selected.',
+        );
+        return;
+      }
+
+      // Extract current guess string for the selected clue
+      const groupCells = getGroupCells(clue.group, cells);
+      // Ensure cells are sorted correctly based on clue direction
+      const sortedGroupCells = [...groupCells].sort((a, b) => {
+        if (clue.direction === 'across') {
+          return a.pos.col - b.pos.col;
+        } else {
+          return a.pos.row - b.pos.row;
+        }
+      });
+      const currentGuess = sortedGroupCells
+        .map((cell) => cell.guess ?? ' ')
+        .join(''); // Use space for blank?
+
+      // Calculate hash of the current guess
+      const calculatedHash = calculateCluePoseidonHash(currentGuess);
+
+      // Compare hashes
+      let isValid = false;
+      isValid = calculatedHash === clue.solutionPoseidonHash;
+
+      // Trigger callback
+      if (onClueHashCheckResult) {
+        onClueHashCheckResult(clue.id, isValid);
+      }
+
+      // TODO: Optionally provide user feedback based on `isValid`
+    },
+    [clues, cells, onClueHashCheckResult],
+  );
+
   return (
     <div className={bem('Crossword')}>
       <div className={bem('Crossword__gridAndControls')}>
@@ -283,8 +331,10 @@ export default function Crossword({
           onAnagramHelperClick={() => setIsAnagramHelperOpen((val) => !val)}
           onCellChange={onCellChange}
           onComplete={onComplete}
+          onCheckClueHash={handleCheckSelectedClueHash}
           setGuessGrid={saveGrid ?? setGuessGrid}
           solutionsAvailable={data.solutionAvailable}
+          selectedClueHasHash={!!selectedClue?.solutionPoseidonHash}
         />
       </div>
       <Clues
@@ -298,3 +348,4 @@ export default function Crossword({
     </div>
   );
 }
+

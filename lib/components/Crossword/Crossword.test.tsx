@@ -1,10 +1,17 @@
 import userEvent from '@testing-library/user-event';
 import { DEFAULT_CELL_MATCHER, DEFAULT_HTML_TAGS } from '../../utils/general';
-import { GuessGrid } from '~/types';
+import { GuessGrid, GuardianCrossword } from '~/types';
 import invalidData from './../../testData/test.invalid.1';
 import validData from './../../testData/test.valid.1';
 import Crossword from './Crossword';
-import { act, fireEvent, render, screen } from '@testing-library/react';
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from '@testing-library/react';
+import { calculateCluePoseidonHash } from '~/utils/hash';
 
 const DEBOUNCE_TIME = 1000;
 
@@ -220,3 +227,116 @@ test.skip('it conditionally shows sticky clue', async () => {
   const lgStickyClue = document.querySelector('.StickyClue');
   expect(lgStickyClue).toBeNull();
 });
+
+const testClueIdWithHash = '1-across';
+const testClueSolution = 'YOYO';
+const testClueSolutionHash = calculateCluePoseidonHash(testClueSolution);
+
+// Create a modified version of validData with a hash for one clue
+const validDataWithHash: GuardianCrossword = {
+  ...validData,
+  entries: validData.entries.map((entry) =>
+    entry.id === testClueIdWithHash
+      ? { ...entry, solutionPoseidonHash: testClueSolutionHash }
+      : entry,
+  ),
+};
+
+test('renders Check Clue Hash button only when selected clue has hash', async () => {
+  const user = userEvent.setup();
+  render(
+    <Crossword
+      allowedHtmlTags={DEFAULT_HTML_TAGS}
+      allowMissingSolutions={false}
+      cellMatcher={DEFAULT_CELL_MATCHER}
+      data={validDataWithHash}
+      id="test-clue-hash-button"
+      stickyClue="auto"
+    />,
+  );
+
+  // Initially, no clue selected, button shouldn't exist
+  expect(
+    screen.queryByRole('button', { name: /check clue hash/i }),
+  ).not.toBeInTheDocument();
+
+  // Select the clue WITH hash (1-across)
+  const clueListItem = screen.getByText(/Toy on a string/);
+  await user.click(clueListItem);
+
+  // Button should now be visible
+  expect(
+    screen.getByRole('button', { name: /check clue hash/i }),
+  ).toBeInTheDocument();
+
+  // Select a clue WITHOUT hash (4-across)
+  const clueListItemWithoutHash = screen.getByText(/Have a rest/);
+  await user.click(clueListItemWithoutHash);
+
+  // Button should disappear
+  expect(
+    screen.queryByRole('button', { name: /check clue hash/i }),
+  ).not.toBeInTheDocument();
+});
+
+test('calls onClueHashCheckResult with correct value when Check Clue Hash is clicked', async () => {
+  const onHashCheckResultMock = jest.fn();
+  const user = userEvent.setup();
+
+  render(
+    <Crossword
+      allowedHtmlTags={DEFAULT_HTML_TAGS}
+      allowMissingSolutions={false}
+      cellMatcher={DEFAULT_CELL_MATCHER}
+      data={validDataWithHash}
+      id="test-clue-hash-check"
+      stickyClue="auto"
+      onClueHashCheckResult={onHashCheckResultMock}
+    />,
+  );
+
+  // 1. Select the clue with the hash
+  const clueListItem = screen.getByText(/Toy on a string/); // 1-across
+  await user.click(clueListItem);
+  const checkButton = screen.getByRole('button', { name: /check clue hash/i });
+
+  // 2. Focus the first cell of the clue
+  // Input element is associated with the grid container
+  const grid = screen.getByTestId('grid');
+  const input = grid.querySelector('input') as HTMLInputElement;
+  const firstCell = document.querySelector('#gridcell-0-0') as HTMLElement;
+  await user.click(firstCell); // Click to focus
+  await waitFor(() => expect(input).toHaveFocus());
+
+  // 3. Enter the INCORRECT solution
+  await user.keyboard('NOPE');
+
+  // 4. Click check button
+  fireEvent.click(checkButton);
+
+  // 5. Verify callback (incorrect)
+  expect(onHashCheckResultMock).toHaveBeenCalledTimes(1);
+  expect(onHashCheckResultMock).toHaveBeenCalledWith(testClueIdWithHash, false);
+  onHashCheckResultMock.mockClear(); // Clear mock for next check
+
+  // 6. Click the first cell AGAIN to re-focus the input
+  await user.click(firstCell); // Click the cell
+  input.focus(); // Explicitly focus the input element
+
+  // 7. Wait for input to have focus (should be immediate now, but waitFor is safe)
+  await waitFor(() => expect(input).toHaveFocus());
+
+  // 8. Need to backspace previous input
+  await user.keyboard('{Backspace}{Backspace}{Backspace}{Backspace}');
+
+  // 9. Enter the CORRECT solution
+  await user.keyboard(testClueSolution); // Types YOYO
+
+  // 10. Click check button again
+  fireEvent.click(checkButton);
+
+  // 11. Verify callback (correct)
+  expect(onHashCheckResultMock).toHaveBeenCalledTimes(1);
+  expect(onHashCheckResultMock).toHaveBeenCalledWith(testClueIdWithHash, true);
+});
+
