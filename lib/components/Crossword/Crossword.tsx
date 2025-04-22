@@ -234,73 +234,72 @@ export default function Crossword({
     [clues, selectClue, selectCells, cellFocus],
   );
 
-  const handleCheckSelectedClueHash = React.useCallback(
-    async (event?: React.MouseEvent<HTMLButtonElement>) => {
-      event?.preventDefault();
-      event?.stopPropagation();
+  const handleCheckSelectedClueHash = async (
+    event?: React.MouseEvent<HTMLButtonElement>,
+  ) => {
+    event?.preventDefault();
+    event?.stopPropagation();
 
-      const clue = clues.find((c) => c.selected);
-      if (!clue) {
-        console.warn('Attempted to check hash but no clue selected.');
-        return;
+    const clue = clues.find((c) => c.selected);
+    if (!clue) {
+      console.warn('Attempted to check hash but no clue selected.');
+      return;
+    }
+    if (!checkClueHash) {
+      console.warn(
+        'Attempted to check hash but `checkClueHash` prop is not provided.',
+      );
+      return;
+    }
+    if (!clue.solutionPoseidonHash) {
+      // If there's no hash to check against (e.g., older crosswords),
+      // perhaps indicate this state differently or disable the check.
+      // For now, just log and return.
+      console.warn('Selected clue does not have a hash to check against.');
+      if (onClueHashCheckResult) {
+        onClueHashCheckResult(clue.id, false); // Indicate failure or inability to check
       }
-      if (!checkClueHash) {
-        console.warn(
-          'Attempted to check hash but `checkClueHash` prop is not provided.',
-        );
-        return;
+      return;
+    }
+
+    // Extract current guess string for the selected clue
+    const groupCells = getGroupCells(clue.group, cells);
+    const sortedGroupCells = [...groupCells].sort((a, b) => {
+      if (clue.direction === 'across') {
+        return a.pos.col - b.pos.col;
+      } else {
+        return a.pos.row - b.pos.row;
       }
-      if (!clue.solutionPoseidonHash) {
-        // If there's no hash to check against (e.g., older crosswords),
-        // perhaps indicate this state differently or disable the check.
-        // For now, just log and return.
-        console.warn('Selected clue does not have a hash to check against.');
-        if (onClueHashCheckResult) {
-          onClueHashCheckResult(clue.id, false); // Indicate failure or inability to check
-        }
-        return;
+    });
+    const currentGuess = sortedGroupCells
+      .map((cell) => cell.guess ?? '') // Use empty string for blank cells
+      .join('');
+
+    console.log('currentGuess for check:', currentGuess);
+
+    // Calculate hash of the current guess using the provided function
+    try {
+      const isValid = await checkClueHash(
+        clue.id,
+        currentGuess,
+        clue.solutionPoseidonHash,
+      );
+      console.log('Hash check result:', isValid);
+
+      // Trigger callback
+      if (onClueHashCheckResult) {
+        onClueHashCheckResult(clue.id, isValid);
       }
-
-      // Extract current guess string for the selected clue
-      const groupCells = getGroupCells(clue.group, cells);
-      const sortedGroupCells = [...groupCells].sort((a, b) => {
-        if (clue.direction === 'across') {
-          return a.pos.col - b.pos.col;
-        } else {
-          return a.pos.row - b.pos.row;
-        }
-      });
-      const currentGuess = sortedGroupCells
-        .map((cell) => cell.guess ?? '') // Use empty string for blank cells
-        .join('');
-
-      console.log('currentGuess for check:', currentGuess);
-
-      // Calculate hash of the current guess using the provided function
-      try {
-        const isValid = await checkClueHash(
-          clue.id,
-          currentGuess,
-          clue.solutionPoseidonHash,
-        );
-        console.log('Hash check result:', isValid);
-
-        // Trigger callback
-        if (onClueHashCheckResult) {
-          onClueHashCheckResult(clue.id, isValid);
-        }
-      } catch (error) {
-        console.error('Error during hash check:', error);
-        // Optionally trigger callback with error state or false
-        if (onClueHashCheckResult) {
-          onClueHashCheckResult(clue.id, false);
-        }
+    } catch (error) {
+      console.error('Error during hash check:', error);
+      // Optionally trigger callback with error state or false
+      if (onClueHashCheckResult) {
+        onClueHashCheckResult(clue.id, false);
       }
+    }
 
-      // TODO: Optionally provide user feedback based on `isValid`
-    },
-    [clues, cells, onClueHashCheckResult, checkClueHash],
-  );
+    // TODO: Optionally provide user feedback based on `isValid`
+  };
 
   return (
     <div className={bem('Crossword')}>
