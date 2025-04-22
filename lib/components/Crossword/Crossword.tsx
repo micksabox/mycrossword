@@ -48,7 +48,7 @@ interface CrosswordProps {
     clueId: string,
     currentGuess: string,
     solutionHash?: string | null,
-  ) => Promise<boolean>;
+  ) => boolean;
 }
 
 export default function Crossword({
@@ -234,7 +234,7 @@ export default function Crossword({
     [clues, selectClue, selectCells, cellFocus],
   );
 
-  const handleCheckSelectedClueHash = async (
+  const handleCheckSelectedClueHash = (
     event?: React.MouseEvent<HTMLButtonElement>,
   ) => {
     event?.preventDefault();
@@ -279,7 +279,7 @@ export default function Crossword({
 
     // Calculate hash of the current guess using the provided function
     try {
-      const isValid = await checkClueHash(
+      const isValid = checkClueHash(
         clue.id,
         currentGuess,
         clue.solutionPoseidonHash,

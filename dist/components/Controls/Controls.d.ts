@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { Cell, CellChange, Clue, GuessGrid } from '~/types';
 import './Controls.css';
 interface ControlsProps {
@@ -11,11 +12,11 @@ interface ControlsProps {
     setGuessGrid: (value: GuessGrid | ((val: GuessGrid) => GuessGrid)) => void;
     solutionsAvailable: boolean;
     selectedClueHasHash?: boolean;
-    onCheckClueHash?: () => void;
+    onCheckClueHash?: (event?: React.MouseEvent<HTMLButtonElement>) => void;
     disableAllReveals?: boolean;
     disableAnagram?: boolean;
     disableLetterChecks?: boolean;
     disableGridChecks?: boolean;
 }
-export default function Controls({ cells, clues, gridCols, gridRows, onAnagramHelperClick, onCellChange, onComplete, setGuessGrid, solutionsAvailable, selectedClueHasHash, onCheckClueHash, disableAnagram, disableGridChecks, }: ControlsProps): import("react/jsx-runtime").JSX.Element;
+export default function Controls({ cells, clues, gridCols, gridRows, onAnagramHelperClick, onCellChange, onComplete, setGuessGrid, solutionsAvailable, onCheckClueHash, disableAnagram, disableGridChecks, }: ControlsProps): import("react/jsx-runtime").JSX.Element;
 export {};

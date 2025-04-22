@@ -1,4 +1,4 @@
-import { jsx as a, jsxs as $, Fragment as ce } from "react/jsx-runtime";
+import { jsx as a, jsxs as k, Fragment as ce } from "react/jsx-runtime";
 import * as _ from "react";
 import fe, { useLayoutEffect as Te, useEffect as le, useRef as ye, useCallback as ne, useState as ke } from "react";
 function Re(e) {
@@ -42,7 +42,7 @@ var $e = { exports: {} };
 })($e);
 var Be = $e.exports;
 const ae = /* @__PURE__ */ Re(Be);
-function W(e) {
+function B(e) {
   return (...o) => ae(o);
 }
 const We = ["b", "strong", "i", "em", "sub", "sup"], Me = /[A-Z]/;
@@ -82,8 +82,8 @@ const pe = (e) => {
   const n = /* @__PURE__ */ new Set(), t = (f, x) => {
     const m = typeof f == "function" ? f(o) : f;
     if (!Object.is(m, o)) {
-      const v = o;
-      o = x ?? (typeof m != "object" || m === null) ? m : Object.assign({}, o, m), n.forEach((u) => u(o, v));
+      const g = o;
+      o = x ?? (typeof m != "object" || m === null) ? m : Object.assign({}, o, m), n.forEach((u) => u(o, g));
     }
   }, r = () => o, c = { setState: t, getState: r, getInitialState: () => d, subscribe: (f) => (n.add(f), () => n.delete(f)) }, d = o = e(t, r, c);
   return c;
@@ -99,7 +99,7 @@ function Ve(e, o = Ue) {
 const he = (e) => {
   const o = Oe(e), n = (t) => Ve(o, t);
   return Object.assign(n, o), n;
-}, He = (e) => e ? he(e) : he, Y = He((e) => ({
+}, De = (e) => e ? he(e) : he, X = De((e) => ({
   clues: [],
   setClues: (o) => {
     e(() => ({ clues: o }));
@@ -128,7 +128,7 @@ const he = (e) => {
       } : r)
     }));
   }
-})), O = He((e, o) => ({
+})), z = De((e, o) => ({
   cells: [],
   complete: !1,
   checkComplete: () => {
@@ -158,8 +158,8 @@ const he = (e) => {
   }
 }));
 function me({ message: e, style: o }) {
-  const n = W();
-  return /* @__PURE__ */ a("div", { className: n("GridError"), style: o, children: /* @__PURE__ */ $("div", { role: "alert", children: [
+  const n = B();
+  return /* @__PURE__ */ a("div", { className: n("GridError"), style: o, children: /* @__PURE__ */ k("div", { role: "alert", children: [
     /* @__PURE__ */ a("h1", { className: n("GridError__title"), children: "Something went wrong" }),
     /* @__PURE__ */ a("p", { className: n("GridError__subTitle"), children: e })
   ] }) });
@@ -286,8 +286,8 @@ function Je({
   show: r,
   text: s
 }) {
-  const i = W();
-  return /* @__PURE__ */ a("div", { className: i("StickyClue", `StickyClue--${r}`), children: s !== void 0 && o !== void 0 ? /* @__PURE__ */ $(ce, { children: [
+  const i = B();
+  return /* @__PURE__ */ a("div", { className: i("StickyClue", `StickyClue--${r}`), children: s !== void 0 && o !== void 0 ? /* @__PURE__ */ k(ce, { children: [
     /* @__PURE__ */ a(
       "button",
       {
@@ -298,7 +298,7 @@ function Je({
         children: /* @__PURE__ */ a(Fe, {})
       }
     ),
-    /* @__PURE__ */ a("div", { className: i("StickyClue__inner"), children: /* @__PURE__ */ $("span", { className: i("StickyClue__text"), children: [
+    /* @__PURE__ */ a("div", { className: i("StickyClue__inner"), children: /* @__PURE__ */ k("span", { className: i("StickyClue__text"), children: [
       /* @__PURE__ */ a("span", { className: i("StickyClue__num"), children: o }),
       /* @__PURE__ */ a(
         "span",
@@ -321,7 +321,7 @@ function Je({
     )
   ] }) : null });
 }
-const L = 31, De = (e) => {
+const L = 31, He = (e) => {
   const o = 1 + (L + 1) * e.col, n = 1 + (L + 1) * e.row, t = o + 1, r = n + 9, s = o + L * 0.5, i = n + L * 0.675;
   return { xRect: o, yRect: n, xNum: t, yNum: r, xText: s, yText: i };
 };
@@ -340,19 +340,19 @@ function Xe({
     throw new Error(
       "Crossword data error: cell does not have 1 or 2 directions"
     );
-  const f = W(), x = Y((I) => I.select), m = O((I) => I.select), { xRect: v, yRect: u, xNum: l, yNum: E, xText: y, yText: T } = De(c), S = (I, R) => {
+  const f = B(), x = X((A) => A.select), m = z((A) => A.select), { xRect: g, yRect: u, xNum: l, yNum: S, xText: $, yText: T } = He(c), E = (A, R) => {
     i !== void 0 && i({
-      pos: I,
+      pos: A,
       clueId: R
     });
-  }, G = () => {
-    var z;
-    let I = d === -1 ? 0 : d;
-    e.length === 2 && r && (I = d === 0 ? 1 : 0);
-    const R = e[I];
-    x(R), r || m(c), (!r || e.length === 2) && S(c, R), (z = n == null ? void 0 : n.current) == null || z.focus({ preventScroll: !0 });
+  }, I = () => {
+    var V;
+    let A = d === -1 ? 0 : d;
+    e.length === 2 && r && (A = d === 0 ? 1 : 0);
+    const R = e[A];
+    x(R), r || m(c), (!r || e.length === 2) && E(c, R), (V = n == null ? void 0 : n.current) == null || V.focus({ preventScroll: !0 });
   };
-  return /* @__PURE__ */ $(
+  return /* @__PURE__ */ k(
     "g",
     {
       className: f(
@@ -360,25 +360,25 @@ function Xe({
         t ? "GridCell--highlighted" : null,
         r ? "GridCell--selected" : null
       ),
-      onClick: G,
+      onClick: I,
       children: [
         /* @__PURE__ */ a(
           "rect",
           {
             className: f("GridCell__rect"),
-            x: v,
+            x: g,
             y: u,
             width: L,
             height: L
           }
         ),
-        s ? /* @__PURE__ */ a("text", { className: f("GridCell__num"), x: l, y: E, children: s }) : null,
+        s ? /* @__PURE__ */ a("text", { className: f("GridCell__num"), x: l, y: S, children: s }) : null,
         /* @__PURE__ */ a(
           "text",
           {
             className: f("GridCell__text"),
             textAnchor: "middle",
-            x: y,
+            x: $,
             y: T,
             children: o
           }
@@ -390,7 +390,7 @@ function Xe({
 const Ye = _.memo(Xe);
 const Ze = _.forwardRef(
   ({ onChange: e, onKeyDown: o, visible: n }, t) => {
-    const r = W();
+    const r = B();
     return /* @__PURE__ */ a(
       "input",
       {
@@ -479,37 +479,37 @@ function so({
   return n.forEach((c) => {
     var d, f;
     for (let x = 0; x < c.length; x += 1) {
-      const m = c.direction === "across", v = m ? c.position.x + x : c.position.x, u = m ? c.position.y : c.position.y + x;
-      if (v < 0 || v >= e || u < 0 || u >= o)
+      const m = c.direction === "across", g = m ? c.position.x + x : c.position.x, u = m ? c.position.y : c.position.y + x;
+      if (g < 0 || g >= e || u < 0 || u >= o)
         throw new Error("Crossword data error: out of bounds");
       if (!r && c.solution !== void 0 && c.length !== c.solution.length)
         throw new Error("Crossword data error: solution length mismatch");
       if (!c.group.includes(c.id))
         throw new Error("Crossword data error: clue id missing from group");
-      if (!c.group.every((E) => i.includes(E)))
+      if (!c.group.every((S) => i.includes(S)))
         throw new Error("Crossword data error: group clue id not found");
       const l = s.find(
-        ({ pos: E }) => E.col === v && E.row === u
+        ({ pos: S }) => S.col === g && S.row === u
       );
       if (l === void 0) {
-        const E = t == null ? void 0 : t.value[v][u], y = {
+        const S = t == null ? void 0 : t.value[g][u], $ = {
           clueIds: [c.id],
-          guess: E !== "" ? E : void 0,
+          guess: S !== "" ? S : void 0,
           num: x === 0 ? c.number : void 0,
-          pos: { col: v, row: u },
+          pos: { col: g, row: u },
           selected: !1,
           val: (d = c.solution) == null ? void 0 : d[x]
         };
-        s.push(y);
+        s.push($);
       } else {
-        if (m && l.clueIds.some((y) => y.endsWith("across")))
+        if (m && l.clueIds.some(($) => $.endsWith("across")))
           throw new Error("Crossword data error: overlapping across solutions");
-        if (!m && l.clueIds.some((y) => y.endsWith("down")))
+        if (!m && l.clueIds.some(($) => $.endsWith("down")))
           throw new Error("Crossword data error: overlapping down solutions");
-        const E = (f = c.solution) == null ? void 0 : f[x];
-        if (!r && l.val !== E)
+        const S = (f = c.solution) == null ? void 0 : f[x];
+        if (!r && l.val !== S)
           throw new Error("Crossword data error: solution character clash");
-        l.num = x === 0 ? c.number : l.num, l.clueIds = [...l.clueIds, c.id], r && E !== void 0 && (l.val = E);
+        l.num = x === 0 ? c.number : l.num, l.clueIds = [...l.clueIds, c.id], r && S !== void 0 && (l.val = S);
       }
     }
   }), s;
@@ -591,105 +591,105 @@ function uo({
   rows: x,
   setGuessGrid: m
 }) {
-  const v = W(), u = o.find((w) => w.selected), l = n.find((w) => w.selected), E = t * L + t + 1, y = x * L + x + 1, [T, S] = _.useState(r), G = eo(T, 1e3), I = _.useRef(null), [R, z] = _.useState(1), U = O((w) => w.select), J = O((w) => w.setCells), F = Y((w) => w.select), q = Y((w) => w.answerSome), oe = O((w) => w.checkComplete), k = _.useCallback(() => {
-    if (I.current !== null) {
-      const w = I.current.clientWidth, C = I.current.clientHeight, p = w / E, g = C / y, N = Math.min(p, g);
-      z(N);
+  const g = B(), u = o.find((C) => C.selected), l = n.find((C) => C.selected), S = t * L + t + 1, $ = x * L + x + 1, [T, E] = _.useState(r), I = eo(T, 1e3), A = _.useRef(null), [R, V] = _.useState(1), P = z((C) => C.select), F = z((C) => C.setCells), j = X((C) => C.select), ee = X((C) => C.answerSome), q = z((C) => C.checkComplete), G = _.useCallback(() => {
+    if (A.current !== null) {
+      const C = A.current.clientWidth, b = A.current.clientHeight, p = C / S, v = b / $, y = Math.min(p, v);
+      V(y);
     }
-  }, [I.current]);
-  _.useEffect(() => (window.addEventListener("resize", k), k(), function() {
-    window.removeEventListener("resize", k);
-  }), [k]), _.useEffect(() => {
-    m(G);
-  }, [G]);
-  const X = (w, C) => {
-    i !== void 0 && w.guess !== C && i({
-      pos: w.pos,
-      guess: C,
-      previousGuess: w.guess
+  }, [A.current]);
+  _.useEffect(() => (window.addEventListener("resize", G), G(), function() {
+    window.removeEventListener("resize", G);
+  }), [G]), _.useEffect(() => {
+    m(I);
+  }, [I]);
+  const J = (C, b) => {
+    i !== void 0 && C.guess !== b && i({
+      pos: C.pos,
+      guess: b,
+      previousGuess: C.guess
     });
-  }, A = (w, C) => {
+  }, w = (C, b) => {
     c !== void 0 && c({
-      pos: w,
-      clueId: C
+      pos: C,
+      clueId: b
     });
-  }, b = (w) => {
-    S(Ge(t, x, w));
-  }, h = () => {
+  }, h = (C) => {
+    E(Ge(t, x, C));
+  }, N = () => {
     if (l === void 0 || u === void 0)
       return;
     if (l.direction === "across" && u.pos.col === l.position.x || l.direction === "down" && u.pos.row === l.position.y) {
-      const C = l.group.indexOf(l.id);
-      if (C > 0) {
-        const p = l.group[C - 1], g = n.find((N) => N.id === p);
-        if (g !== void 0) {
-          const N = {
-            col: g.position.x + (g.direction === "across" ? g.length - 1 : 0),
-            row: g.position.y + (g.direction === "down" ? g.length - 1 : 0)
+      const b = l.group.indexOf(l.id);
+      if (b > 0) {
+        const p = l.group[b - 1], v = n.find((y) => y.id === p);
+        if (v !== void 0) {
+          const y = {
+            col: v.position.x + (v.direction === "across" ? v.length - 1 : 0),
+            row: v.position.y + (v.direction === "down" ? v.length - 1 : 0)
           };
-          F(p), U(N), A(N, p);
+          j(p), P(y), w(y, p);
         }
       }
     } else {
-      const C = l.direction === "across" ? { col: u.pos.col - 1, row: u.pos.row } : { col: u.pos.col, row: u.pos.row - 1 };
-      U(C), A(C, l.id);
+      const b = l.direction === "across" ? { col: u.pos.col - 1, row: u.pos.row } : { col: u.pos.col, row: u.pos.row - 1 };
+      P(b), w(b, l.id);
     }
-  }, B = () => {
+  }, K = () => {
     if (l === void 0 || u === void 0)
       return;
     if (l.direction === "across" && u.pos.col === l.position.x + l.length - 1 || l.direction === "down" && u.pos.row === l.position.y + l.length - 1) {
-      const C = l.group.indexOf(l.id);
-      if (l.group.length - 1 > C) {
-        const p = l.group[C + 1], g = n.find((N) => N.id === p);
-        if (g !== void 0) {
-          const N = {
-            col: g.position.x,
-            row: g.position.y
+      const b = l.group.indexOf(l.id);
+      if (l.group.length - 1 > b) {
+        const p = l.group[b + 1], v = n.find((y) => y.id === p);
+        if (v !== void 0) {
+          const y = {
+            col: v.position.x,
+            row: v.position.y
           };
-          F(p), U(N), A(N, p);
+          j(p), P(y), w(y, p);
         }
       }
     } else {
-      const C = l.direction === "across" ? { col: u.pos.col + 1, row: u.pos.row } : { col: u.pos.col, row: u.pos.row + 1 };
-      U(C), A(C, l.id);
+      const b = l.direction === "across" ? { col: u.pos.col + 1, row: u.pos.row } : { col: u.pos.col, row: u.pos.row + 1 };
+      P(b), w(b, l.id);
     }
-  }, M = (w, C) => {
-    const p = (H, j, D) => {
-      const Z = H + j;
-      return Z === -1 ? D - 1 : Z === D ? 0 : Z;
+  }, W = (C, b) => {
+    const p = (D, M, H) => {
+      const Y = D + M;
+      return Y === -1 ? H - 1 : Y === H ? 0 : Y;
     };
-    let { col: g, row: N } = u == null ? void 0 : u.pos;
+    let { col: v, row: y } = u == null ? void 0 : u.pos;
     for (; ; ) {
-      w === 1 || w === -1 ? g = p(g, w, t) : (C === 1 || C === -1) && (N = p(N, C, x));
-      const H = o.find(
+      C === 1 || C === -1 ? v = p(v, C, t) : (b === 1 || b === -1) && (y = p(y, b, x));
+      const D = o.find(
         // eslint-disable-next-line @typescript-eslint/no-loop-func
-        (j) => j.pos.col === g && j.pos.row === N
+        (M) => M.pos.col === v && M.pos.row === y
       );
-      if (H !== void 0)
-        return H;
+      if (D !== void 0)
+        return D;
     }
-  }, P = (w) => {
+  }, O = (C) => {
     if (l === void 0 || u === void 0)
       return;
-    let C;
-    switch (w) {
+    let b;
+    switch (C) {
       case "Up":
-        C = M(0, -1);
+        b = W(0, -1);
         break;
       case "Down":
-        C = M(0, 1);
+        b = W(0, 1);
         break;
       case "Left":
-        C = M(-1, 0);
+        b = W(-1, 0);
         break;
       case "Right":
-        C = M(1, 0);
+        b = W(1, 0);
         break;
       default:
-        C = void 0;
+        b = void 0;
     }
-    C !== void 0 && (U(C.pos), C.clueIds.includes(l.id) ? A(C.pos, l.id) : (F(C.clueIds[0]), A(C.pos, C.clueIds[0])));
-  }, K = (w) => {
+    b !== void 0 && (P(b.pos), b.clueIds.includes(l.id) ? w(b.pos, l.id) : (j(b.clueIds[0]), w(b.pos, b.clueIds[0])));
+  }, oe = (C) => {
     if (!(l === void 0 || u === void 0) && [
       "ArrowUp",
       "ArrowDown",
@@ -698,103 +698,103 @@ function uo({
       "Backspace",
       "Delete",
       "Tab"
-    ].includes(w.key)) {
-      if (w.preventDefault(), w.stopPropagation(), ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(w.key))
-        P(w.key.replace("Arrow", ""));
-      else if (["Backspace", "Delete"].includes(w.key)) {
-        X(u, void 0);
-        const C = {
+    ].includes(C.key)) {
+      if (C.preventDefault(), C.stopPropagation(), ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(C.key))
+        O(C.key.replace("Arrow", ""));
+      else if (["Backspace", "Delete"].includes(C.key)) {
+        J(u, void 0);
+        const b = {
           ...u,
           guess: void 0
-        }, p = ve(C, o);
-        J(p), u.clueIds.forEach((g) => {
-          const N = n.find((H) => H.id === g);
-          if (N) {
-            const H = ie(N, p);
-            q(N.group, H);
+        }, p = ve(b, o);
+        F(p), u.clueIds.forEach((v) => {
+          const y = n.find((D) => D.id === v);
+          if (y) {
+            const D = ie(y, p);
+            ee(y.group, D);
           }
-        }), w.key === "Backspace" && h(), b(p);
-      } else if (w.key === "Tab") {
-        const C = n.findIndex((H) => H.selected);
+        }), C.key === "Backspace" && N(), h(p);
+      } else if (C.key === "Tab") {
+        const b = n.findIndex((D) => D.selected);
         let p = 0;
-        w.shiftKey ? p = C > 0 ? C - 1 : n.length - 1 : p = C < n.length - 1 ? C + 1 : 0;
-        const g = n[p], N = {
-          col: g.position.x,
-          row: g.position.y
+        C.shiftKey ? p = b > 0 ? b - 1 : n.length - 1 : p = b < n.length - 1 ? b + 1 : 0;
+        const v = n[p], y = {
+          col: v.position.x,
+          row: v.position.y
         };
-        F(g.id), U(N), A(N, g.id);
+        j(v.id), P(y), w(y, v.id);
       }
     }
-  }, Q = (w) => {
+  }, Z = (C) => {
     if (l === void 0 || u === void 0)
       return;
-    const C = w.target.value.toUpperCase();
-    if (Ie(C, e)) {
-      X(u, C);
+    const b = C.target.value.toUpperCase();
+    if (Ie(b, e)) {
+      J(u, b);
       const p = {
         ...u,
-        guess: C
-      }, g = ve(p, o);
-      J(g), u.clueIds.forEach((N) => {
-        const H = n.find((D) => D.id === N);
-        ie(H, g) && q(H.group, !0);
-      }), B(), d !== void 0 && oe() === !0 && d(), b(g);
+        guess: b
+      }, v = ve(p, o);
+      F(v), u.clueIds.forEach((y) => {
+        const D = n.find((H) => H.id === y);
+        ie(D, v) && ee(D.group, !0);
+      }), K(), d !== void 0 && q() === !0 && d(), h(v);
     } else
-      w.preventDefault();
-  }, V = u !== void 0 ? De(u == null ? void 0 : u.pos) : void 0;
-  return /* @__PURE__ */ $(
+      C.preventDefault();
+  }, U = u !== void 0 ? He(u == null ? void 0 : u.pos) : void 0;
+  return /* @__PURE__ */ k(
     "div",
     {
-      className: v("Grid"),
+      className: g("Grid"),
       "data-testid": "grid",
       style: {
-        minWidth: E,
-        minHeight: y,
-        width: E,
-        height: y,
+        minWidth: S,
+        minHeight: $,
+        width: S,
+        height: $,
         aspectRatio: `${t} / ${x}`
       },
       children: [
-        /* @__PURE__ */ $(
+        /* @__PURE__ */ k(
           "svg",
           {
             preserveAspectRatio: "xMinYMin",
-            ref: I,
-            viewBox: `0 0 ${E} ${y}`,
+            ref: A,
+            viewBox: `0 0 ${S} ${$}`,
             children: [
               /* @__PURE__ */ a(
                 "rect",
                 {
-                  className: v("Grid__background"),
-                  onMouseDown: (w) => {
-                    w.preventDefault();
-                    const C = document.querySelector(".GridInput");
-                    C !== null && C.blur();
+                  className: g("Grid__background"),
+                  onMouseDown: (C) => {
+                    C.preventDefault();
+                    const b = document.querySelector(".GridInput");
+                    b !== null && b.blur();
                   },
-                  width: E,
-                  height: y,
+                  width: S,
+                  height: $,
                   x: "0",
                   y: "0"
                 }
               ),
-              o.map(({ clueIds: w, guess: C, num: p, pos: g }) => {
-                const N = ao(g, u == null ? void 0 : u.pos), H = w.some(
-                  (D) => l == null ? void 0 : l.group.includes(D)
-                ), j = l !== void 0 ? w.indexOf(l.id) : -1;
+              o.map(({ clueIds: C, guess: b, num: p, pos: v }) => {
+                const y = ao(v, u == null ? void 0 : u.pos), D = C.some(
+                  (H) => l == null ? void 0 : l.group.includes(H)
+                ), M = l !== void 0 ? C.indexOf(l.id) : -1;
                 return /* @__PURE__ */ a(
                   Ye,
                   {
-                    clueIds: w,
-                    guess: C,
+                    clueIds: C,
+                    guess: b,
                     inputRef: s,
-                    isHighlighted: H,
-                    isSelected: N,
+                    isHighlighted: D,
+                    isSelected: y,
                     num: p,
                     onCellFocus: c,
-                    pos: g,
-                    selectedClueIndex: j
+                    pos: v,
+                    selectedClueIndex: M
                   },
-                  `${g.col},${g.row}`
+                  `${v.col},${v.row}`
                 );
               }),
               /* @__PURE__ */ a(to, { clues: f })
@@ -804,18 +804,18 @@ function uo({
         /* @__PURE__ */ a(
           "div",
           {
-            className: v("Grid__inputContainer"),
+            className: g("Grid__inputContainer"),
             style: {
               width: u !== void 0 ? L * R : void 0,
               height: u !== void 0 ? L * R : void 0,
-              top: (V == null ? void 0 : V.yRect) !== void 0 ? V.yRect * R : void 0,
-              left: (V == null ? void 0 : V.xRect) !== void 0 ? V.xRect * R : void 0
+              top: (U == null ? void 0 : U.yRect) !== void 0 ? U.yRect * R : void 0,
+              left: (U == null ? void 0 : U.xRect) !== void 0 ? U.xRect * R : void 0
             },
             children: /* @__PURE__ */ a(
               Qe,
               {
-                onChange: Q,
-                onKeyDown: K,
+                onChange: Z,
+                onKeyDown: oe,
                 ref: s,
                 visible: u !== void 0
               }
@@ -840,46 +840,46 @@ function fo({
   scrollTo: x,
   text: m
 }) {
-  const v = W(), u = _.useRef(null), l = O((S) => S.select), E = Y((S) => S.select), y = (S, G) => {
+  const g = B(), u = _.useRef(null), l = z((E) => E.select), S = X((E) => E.select), $ = (E, I) => {
     d !== void 0 && d({
-      pos: S,
-      clueId: G
+      pos: E,
+      clueId: I
     });
   }, T = _.useCallback(() => {
-    var G;
-    const S = { col: n, row: f };
-    E(r), l(S), y(S, r), (G = s == null ? void 0 : s.current) == null || G.focus({ preventScroll: !0 });
+    var I;
+    const E = { col: n, row: f };
+    S(r), l(E), $(E, r), (I = s == null ? void 0 : s.current) == null || I.focus({ preventScroll: !0 });
   }, [s]);
   return _.useEffect(() => {
     if (x && u.current !== null && t !== void 0 && t.current !== null) {
-      const S = u.current.getBoundingClientRect(), G = t.current.getBoundingClientRect();
-      je(S, G) || u.current.scrollIntoView({
+      const E = u.current.getBoundingClientRect(), I = t.current.getBoundingClientRect();
+      je(E, I) || u.current.scrollIntoView({
         behavior: "auto",
         block: "nearest",
         inline: "nearest"
       });
     }
-  }, [x]), /* @__PURE__ */ $(
+  }, [x]), /* @__PURE__ */ k(
     "div",
     {
-      className: v(
+      className: g(
         "Clue",
         o ? "Clue--answered" : null,
         i ? "Clue--highlighted" : null
       ),
       onClick: T,
-      onKeyDown: (S) => {
-        S.key === "Enter" && T();
+      onKeyDown: (E) => {
+        E.key === "Enter" && T();
       },
       role: "button",
       ref: u,
       tabIndex: 0,
       children: [
-        /* @__PURE__ */ a("span", { className: v("Clue__num"), children: c }),
+        /* @__PURE__ */ a("span", { className: g("Clue__num"), children: c }),
         /* @__PURE__ */ a(
           "span",
           {
-            className: v("Clue__text"),
+            className: g("Clue__text"),
             dangerouslySetInnerHTML: {
               __html: te(se(m), {
                 allowedTags: e
@@ -923,20 +923,20 @@ function mo({
   onCellFocus: r,
   selectedClueId: s
 }) {
-  const i = ho(), c = _.useRef(null), d = _.useRef(null), f = _.useRef(null), x = o.filter((l) => l.direction === "across").sort((l, E) => l.number - E.number), m = o.filter((l) => l.direction === "down").sort((l, E) => l.number - E.number), v = (l) => {
+  const i = ho(), c = _.useRef(null), d = _.useRef(null), f = _.useRef(null), x = o.filter((l) => l.direction === "across").sort((l, S) => l.number - S.number), m = o.filter((l) => l.direction === "down").sort((l, S) => l.number - S.number), g = (l) => {
     if (s === void 0)
       return !1;
-    const E = o.find((y) => y.id === s);
-    return (E == null ? void 0 : E.group.includes(l.id)) ?? !1;
+    const S = o.find(($) => $.id === s);
+    return (S == null ? void 0 : S.group.includes(l.id)) ?? !1;
   }, u = (l) => i !== void 0 && ["md", "lg", "xl", "xxl"].includes(i) && s !== void 0 && l.group.includes(s) && l.id === l.group[0];
-  return /* @__PURE__ */ $(
+  return /* @__PURE__ */ k(
     "div",
     {
       className: "Clues",
       ref: c,
       style: { maxHeight: n },
       children: [
-        /* @__PURE__ */ $("div", { className: "Clues__list Clues__list--across", ref: d, children: [
+        /* @__PURE__ */ k("div", { className: "Clues__list Clues__list--across", ref: d, children: [
           /* @__PURE__ */ a("h3", { className: "Clues__listHeader", children: "Across" }),
           /* @__PURE__ */ a("div", { className: "Clues__listBody", children: x.map((l) => /* @__PURE__ */ a(
             be,
@@ -947,7 +947,7 @@ function mo({
               containerRef: i === "md" ? c : d,
               id: l.id,
               inputRef: t,
-              isHighlighted: v(l),
+              isHighlighted: g(l),
               num: l.humanNumber,
               onCellFocus: r,
               row: l.position.y,
@@ -957,7 +957,7 @@ function mo({
             l.id
           )) })
         ] }),
-        /* @__PURE__ */ $("div", { className: "Clues__list Clues__list--down", ref: f, children: [
+        /* @__PURE__ */ k("div", { className: "Clues__list Clues__list--down", ref: f, children: [
           /* @__PURE__ */ a("h3", { className: "Clues__listHeader", children: "Down" }),
           /* @__PURE__ */ a("div", { className: "Clues__listBody", children: m.map((l) => /* @__PURE__ */ a(
             be,
@@ -968,7 +968,7 @@ function mo({
               containerRef: i === "md" ? c : f,
               id: l.id,
               inputRef: t,
-              isHighlighted: v(l),
+              isHighlighted: g(l),
               num: l.humanNumber,
               onCellFocus: r,
               row: l.position.y,
@@ -1037,7 +1037,7 @@ function Co({
   separators: n,
   shuffling: t
 }) {
-  const r = W(), s = e.map((f) => f.guess).join(""), i = o !== void 0 ? vo(o == null ? void 0 : o.toUpperCase(), s) : void 0;
+  const r = B(), s = e.map((f) => f.guess).join(""), i = o !== void 0 ? vo(o == null ? void 0 : o.toUpperCase(), s) : void 0;
   let c = o == null ? void 0 : o.toUpperCase(), d = 0;
   return /* @__PURE__ */ a("div", { className: "SolutionDisplay", children: e.map((f, x) => {
     const m = f.guess !== void 0 && (c == null ? void 0 : c.includes(f.guess));
@@ -1070,7 +1070,7 @@ function So({
   letters: e,
   populatedLetters: o
 }) {
-  const n = W(), t = _o(e), r = 40;
+  const n = B(), t = _o(e), r = 40;
   let s = o.toUpperCase();
   return /* @__PURE__ */ a("div", { className: n("WordWheel"), children: e.toUpperCase().split("").map((i, c) => {
     const d = s.includes(i);
@@ -1100,7 +1100,7 @@ const Eo = _.forwardRef(
     onKeyDown: i,
     variant: c = "filled"
   }, d) => {
-    const f = W();
+    const f = B();
     return /* @__PURE__ */ a(
       "button",
       {
@@ -1116,7 +1116,7 @@ const Eo = _.forwardRef(
       }
     );
   }
-), ee = Eo;
+), Q = Eo;
 function No({ className: e }) {
   return /* @__PURE__ */ a(
     "svg",
@@ -1136,25 +1136,25 @@ function yo({
   onClose: r,
   style: s
 }) {
-  const i = W(), c = _.useRef(null), d = _.useRef(null), [f, x] = _.useState(""), [m, v] = _.useState(!1), u = f !== "" || m, l = n.length;
+  const i = B(), c = _.useRef(null), d = _.useRef(null), [f, x] = _.useState(""), [m, g] = _.useState(!1), u = f !== "" || m, l = n.length;
   _.useEffect(() => {
-    var S;
-    m || (S = c.current) == null || S.focus({ preventScroll: !0 });
+    var E;
+    m || (E = c.current) == null || E.focus({ preventScroll: !0 });
   }, [m]);
-  const E = () => {
-    x(""), v(!1);
-  }, y = () => {
-    var S;
+  const S = () => {
+    x(""), g(!1);
+  }, $ = () => {
+    var E;
     f !== "" && (x(
-      (G) => G.split("").sort(() => 0.5 - Math.random()).join("")
-    ), v(!0), (S = d.current) == null || S.focus({ preventScroll: !0 }));
-  }, T = (S) => {
-    var G;
-    x((I) => (I + S).substring(0, l)), (G = c.current) == null || G.focus({ preventScroll: !0 });
+      (I) => I.split("").sort(() => 0.5 - Math.random()).join("")
+    ), g(!0), (E = d.current) == null || E.focus({ preventScroll: !0 }));
+  }, T = (E) => {
+    var I;
+    x((A) => (A + E).substring(0, l)), (I = c.current) == null || I.focus({ preventScroll: !0 });
   };
   return _.useEffect(() => {
-    E();
-  }, [o.id]), /* @__PURE__ */ $(
+    S();
+  }, [o.id]), /* @__PURE__ */ k(
     "div",
     {
       className: i(
@@ -1164,7 +1164,7 @@ function yo({
       style: s,
       children: [
         /* @__PURE__ */ a(
-          ee,
+          Q,
           {
             ariaLabel: "Close",
             className: i("AnagramHelper__closeButton"),
@@ -1177,18 +1177,18 @@ function yo({
           So,
           {
             letters: f,
-            populatedLetters: n.map((S) => S.guess).join("")
+            populatedLetters: n.map((E) => E.guess).join("")
           }
-        ) : /* @__PURE__ */ $(ce, { children: [
+        ) : /* @__PURE__ */ k(ce, { children: [
           /* @__PURE__ */ a(
             "input",
             {
               autoComplete: "off",
               className: i("AnagramHelper__input"),
               maxLength: l,
-              onChange: (S) => x(S.target.value),
-              onKeyDown: (S) => {
-                ["Enter", "NumpadEnter"].includes(S.code) ? (S.preventDefault(), y()) : S.code === "Escape" && (f === "" ? r() : E());
+              onChange: (E) => x(E.target.value),
+              onKeyDown: (E) => {
+                ["Enter", "NumpadEnter"].includes(E.code) ? (E.preventDefault(), $()) : E.code === "Escape" && (f === "" ? r() : S());
               },
               placeholder: "Enter letters...",
               ref: c,
@@ -1196,7 +1196,7 @@ function yo({
               value: f
             }
           ),
-          /* @__PURE__ */ $(
+          /* @__PURE__ */ k(
             "span",
             {
               className: i(
@@ -1211,23 +1211,23 @@ function yo({
             }
           )
         ] }) }),
-        /* @__PURE__ */ $("div", { className: i("AnagramHelper__bottom"), children: [
-          /* @__PURE__ */ $("div", { className: i("AnagramHelper__buttons"), children: [
-            /* @__PURE__ */ a(ee, { disabled: !u, onClick: E, variant: "outlined", children: "Reset" }),
+        /* @__PURE__ */ k("div", { className: i("AnagramHelper__bottom"), children: [
+          /* @__PURE__ */ k("div", { className: i("AnagramHelper__buttons"), children: [
+            /* @__PURE__ */ a(Q, { disabled: !u, onClick: S, variant: "outlined", children: "Reset" }),
             /* @__PURE__ */ a(
-              ee,
+              Q,
               {
                 disabled: !u,
-                onClick: y,
-                onKeyDown: (S) => {
-                  S.code === "Escape" && E();
+                onClick: $,
+                onKeyDown: (E) => {
+                  E.code === "Escape" && S();
                 },
                 ref: d,
                 children: "Shuffle"
               }
             )
           ] }),
-          /* @__PURE__ */ $("p", { className: i("AnagramHelper__clue"), children: [
+          /* @__PURE__ */ k("p", { className: i("AnagramHelper__clue"), children: [
             /* @__PURE__ */ a(
               "span",
               {
@@ -1241,7 +1241,7 @@ function yo({
                 allowedHtmlTags: e,
                 className: i("AnagramHelper__clickableWord"),
                 clue: o.clue,
-                onClick: (S) => T(S),
+                onClick: (E) => T(E),
                 splitWords: !m
               }
             )
@@ -1291,40 +1291,40 @@ function Ee(e, o, n, t) {
 const ue = typeof window > "u";
 function ko(e, o, n = {}) {
   const { initializeWithValue: t = !0 } = n, r = ne(
-    (v) => n.serializer ? n.serializer(v) : JSON.stringify(v),
+    (g) => n.serializer ? n.serializer(g) : JSON.stringify(g),
     [n]
   ), s = ne(
-    (v) => {
+    (g) => {
       if (n.deserializer)
-        return n.deserializer(v);
-      if (v === "undefined")
+        return n.deserializer(g);
+      if (g === "undefined")
         return;
       const u = o instanceof Function ? o() : o;
       let l;
       try {
-        l = JSON.parse(v);
-      } catch (E) {
-        return console.error("Error parsing JSON:", E), u;
+        l = JSON.parse(g);
+      } catch (S) {
+        return console.error("Error parsing JSON:", S), u;
       }
       return l;
     },
     [n, o]
   ), i = ne(() => {
-    const v = o instanceof Function ? o() : o;
+    const g = o instanceof Function ? o() : o;
     if (ue)
-      return v;
+      return g;
     try {
       const u = window.localStorage.getItem(e);
-      return u ? s(u) : v;
+      return u ? s(u) : g;
     } catch (u) {
-      return console.warn(`Error reading localStorage key “${e}”:`, u), v;
+      return console.warn(`Error reading localStorage key “${e}”:`, u), g;
     }
-  }, [o, e, s]), [c, d] = ke(() => t ? i() : o instanceof Function ? o() : o), f = Se((v) => {
+  }, [o, e, s]), [c, d] = ke(() => t ? i() : o instanceof Function ? o() : o), f = Se((g) => {
     ue && console.warn(
       `Tried setting localStorage key “${e}” even though environment is not a client`
     );
     try {
-      const u = v instanceof Function ? v(i()) : v;
+      const u = g instanceof Function ? g(i()) : g;
       window.localStorage.setItem(e, r(u)), d(u), window.dispatchEvent(new StorageEvent("local-storage", { key: e }));
     } catch (u) {
       console.warn(`Error setting localStorage key “${e}”:`, u);
@@ -1333,15 +1333,15 @@ function ko(e, o, n = {}) {
     ue && console.warn(
       `Tried removing localStorage key “${e}” even though environment is not a client`
     );
-    const v = o instanceof Function ? o() : o;
-    window.localStorage.removeItem(e), d(v), window.dispatchEvent(new StorageEvent("local-storage", { key: e }));
+    const g = o instanceof Function ? o() : o;
+    window.localStorage.removeItem(e), d(g), window.dispatchEvent(new StorageEvent("local-storage", { key: e }));
   });
   le(() => {
     d(i());
   }, [e]);
   const m = ne(
-    (v) => {
-      v.key && v.key !== e || d(i());
+    (g) => {
+      g.key && g.key !== e || d(i());
     },
     [e, i]
   );
@@ -1356,7 +1356,7 @@ function de({
 }) {
   if (t <= 0)
     throw new Error("Confirm should have a timeout greater than zero");
-  const r = W(), [s, i] = _.useState(t);
+  const r = B(), [s, i] = _.useState(t);
   return _.useEffect(() => {
     const c = setTimeout(() => {
       s <= 1 ? o() : i((d) => d - 1);
@@ -1364,12 +1364,12 @@ function de({
     return function() {
       clearTimeout(c);
     };
-  }, [s]), /* @__PURE__ */ $("div", { className: r("Confirm"), children: [
-    /* @__PURE__ */ $("div", { className: r("Confirm__buttonContainer"), children: [
-      /* @__PURE__ */ a(ee, { onClick: o, variant: "outlined", children: "Cancel" }),
-      /* @__PURE__ */ a(ee, { className: r("Confirm__button"), onClick: n, children: e })
+  }, [s]), /* @__PURE__ */ k("div", { className: r("Confirm"), children: [
+    /* @__PURE__ */ k("div", { className: r("Confirm__buttonContainer"), children: [
+      /* @__PURE__ */ a(Q, { onClick: o, variant: "outlined", children: "Cancel" }),
+      /* @__PURE__ */ a(Q, { className: r("Confirm__button"), onClick: n, children: e })
     ] }),
-    /* @__PURE__ */ $("span", { className: r("Confirm__timeout"), children: [
+    /* @__PURE__ */ k("span", { className: r("Confirm__timeout"), children: [
       "This will automatically cancel in ",
       s
     ] })
@@ -1391,10 +1391,10 @@ function Io({ className: e }) {
 function Ao({ className: e, id: o, menu: n, text: t }) {
   if (n.length < 2)
     throw new Error("DropdownButton should have at least 2 menu items");
-  const r = W(), s = _.useRef(null), i = _.useRef(null), c = _.useRef(null), [d, f] = _.useState(!1);
+  const r = B(), s = _.useRef(null), i = _.useRef(null), c = _.useRef(null), [d, f] = _.useState(!1);
   _.useEffect(() => {
-    const m = (v) => {
-      const u = s.current !== null && !s.current.contains(v.target);
+    const m = (g) => {
+      const u = s.current !== null && !s.current.contains(g.target);
       d && u && f(!1);
     };
     return document.addEventListener("click", m), function() {
@@ -1411,7 +1411,7 @@ function Ao({ className: e, id: o, menu: n, text: t }) {
     }
     f((m) => !m);
   };
-  return /* @__PURE__ */ $(
+  return /* @__PURE__ */ k(
     "div",
     {
       className: ae(
@@ -1420,7 +1420,7 @@ function Ao({ className: e, id: o, menu: n, text: t }) {
       ),
       ref: s,
       children: [
-        /* @__PURE__ */ $(
+        /* @__PURE__ */ k(
           "button",
           {
             "aria-controls": o !== void 0 ? `${o}-listbox` : void 0,
@@ -1474,146 +1474,138 @@ function Go({
   onComplete: i,
   setGuessGrid: c,
   solutionsAvailable: d,
-  selectedClueHasHash: f,
-  onCheckClueHash: x,
-  disableAnagram: m = !1,
-  disableGridChecks: v = !1
+  // selectedClueHasHash,
+  onCheckClueHash: f,
+  disableAnagram: x = !1,
+  disableGridChecks: m = !1
 }) {
-  const u = W(), l = o.find((b) => b.selected), [E, y] = _.useState(!1), [T, S] = _.useState(!1), [G, I] = _.useState(!1), R = O((b) => b.answerAll), z = O((b) => b.setCells), U = O((b) => b.checkComplete), J = Y((b) => b.answerAll), F = Y((b) => b.answerSome), q = (b) => {
-    c(Ge(n, t, b));
-  }, oe = (b, h) => {
-    co(b, h).forEach((M) => {
-      const P = o.find((K) => K.id === M);
-      if (P) {
-        const K = ie(P, h);
-        F(P.group, K);
+  const g = B(), u = o.find((w) => w.selected), [l, S] = _.useState(!1), [$, T] = _.useState(!1), [E, I] = _.useState(!1), A = z((w) => w.answerAll), R = z((w) => w.setCells), V = z((w) => w.checkComplete), P = X((w) => w.answerAll), F = X((w) => w.answerSome), j = (w) => {
+    c(Ge(n, t, w));
+  }, ee = (w, h) => {
+    co(w, h).forEach((K) => {
+      const W = o.find((O) => O.id === K);
+      if (W) {
+        const O = ie(W, h);
+        F(W.group, O);
       }
     });
-  }, k = (b, h) => {
-    s !== void 0 && b.guess !== h && s({
-      pos: b.pos,
+  }, q = (w, h) => {
+    s !== void 0 && w.guess !== h && s({
+      pos: w.pos,
       guess: h,
-      previousGuess: b.guess
+      previousGuess: w.guess
     });
-  }, X = [
+  }, G = [
     {
-      disabled: l === void 0,
+      disabled: u === void 0,
       onClick: () => {
-        if (l !== void 0) {
-          s !== void 0 && re(l.group, e).forEach((B) => {
-            B.guess !== void 0 && B.val !== B.guess && k(B, void 0);
+        if (u !== void 0) {
+          s !== void 0 && re(u.group, e).forEach((N) => {
+            N.guess !== void 0 && N.val !== N.guess && q(N, void 0);
           });
-          const b = e.map((h) => l.group.filter(
-            (M) => h.clueIds.includes(M)
+          const w = e.map((h) => u.group.filter(
+            (K) => h.clueIds.includes(K)
           ).length > 0 ? {
             ...h,
             guess: h.guess === h.val ? h.val : void 0
           } : h);
-          z(b), oe(l, b), q(b);
+          R(w), ee(u, w), j(w);
         }
       },
       text: "Check word"
     },
     {
-      onClick: () => y(!0),
+      onClick: () => S(!0),
       text: "Check grid",
-      disabled: v
+      disabled: m
     }
-  ], A = [
+  ], J = [
     {
-      disabled: l === void 0,
+      disabled: u === void 0,
       onClick: () => {
-        if (l !== void 0) {
-          const b = e.map((h) => {
-            const B = l.group.filter(
-              (M) => h.clueIds.includes(M)
+        if (u !== void 0) {
+          const w = e.map((h) => {
+            const N = u.group.filter(
+              (K) => h.clueIds.includes(K)
             );
-            if (B.length > 0) {
+            if (N.length > 0) {
               if (h.clueIds.length === 1)
-                return k(h, void 0), {
+                return q(h, void 0), {
                   ...h,
                   guess: void 0
                 };
-              const P = B[0].includes("across");
-              if (ro(e, h, P))
-                return k(h, void 0), {
+              const W = N[0].includes("across");
+              if (ro(e, h, W))
+                return q(h, void 0), {
                   ...h,
                   guess: void 0
                 };
             }
             return h;
           });
-          z(b), F(l.group, !1), q(b);
+          R(w), F(u.group, !1), j(w);
         }
       },
       text: "Clear word"
     },
     { onClick: () => I(!0), text: "Clear grid" }
   ];
-  return E ? /* @__PURE__ */ a("div", { className: u("Controls"), children: /* @__PURE__ */ a(
+  return l ? /* @__PURE__ */ a("div", { className: g("Controls"), children: /* @__PURE__ */ a(
     de,
     {
       buttonText: "Confirm check grid",
-      onCancel: () => y(!1),
-      onConfirm: () => {
-        s !== void 0 && e.forEach((h) => {
-          h.guess !== void 0 && h.val !== h.guess && k(h, void 0);
-        });
-        const b = e.map((h) => ({
-          ...h,
-          guess: h.guess === h.val ? h.val : void 0
-        }));
-        z(b), o.forEach((h) => {
-          const B = ie(h, b);
-          F(h.group, B);
-        }), y(!1), q(b);
-      }
-    }
-  ) }) : T ? /* @__PURE__ */ a("div", { className: u("Controls"), children: /* @__PURE__ */ a(
-    de,
-    {
-      buttonText: "Confirm reveal grid",
       onCancel: () => S(!1),
       onConfirm: () => {
         s !== void 0 && e.forEach((h) => {
-          h.val !== h.guess && k(h, h.val);
-        }), R(!0), J(!0), S(!1), i !== void 0 && U() === !0 && i();
-        const b = e.map((h) => ({
+          h.guess !== void 0 && h.val !== h.guess && q(h, void 0);
+        });
+        const w = e.map((h) => ({
+          ...h,
+          guess: h.guess === h.val ? h.val : void 0
+        }));
+        R(w), o.forEach((h) => {
+          const N = ie(h, w);
+          F(h.group, N);
+        }), S(!1), j(w);
+      }
+    }
+  ) }) : $ ? /* @__PURE__ */ a("div", { className: g("Controls"), children: /* @__PURE__ */ a(
+    de,
+    {
+      buttonText: "Confirm reveal grid",
+      onCancel: () => T(!1),
+      onConfirm: () => {
+        s !== void 0 && e.forEach((h) => {
+          h.val !== h.guess && q(h, h.val);
+        }), A(!0), P(!0), T(!1), i !== void 0 && V() === !0 && i();
+        const w = e.map((h) => ({
           ...h,
           guess: h.val
         }));
-        q(b);
+        j(w);
       }
     }
-  ) }) : G ? /* @__PURE__ */ a("div", { className: u("Controls"), children: /* @__PURE__ */ a(
+  ) }) : E ? /* @__PURE__ */ a("div", { className: g("Controls"), children: /* @__PURE__ */ a(
     de,
     {
       buttonText: "Confirm clear grid",
       onCancel: () => I(!1),
       onConfirm: () => {
-        s !== void 0 && e.forEach((b) => {
-          b.guess !== void 0 && k(b, void 0);
-        }), R(!1), J(!1), I(!1), q([]);
+        s !== void 0 && e.forEach((w) => {
+          w.guess !== void 0 && q(w, void 0);
+        }), A(!1), P(!1), I(!1), j([]);
       }
     }
-  ) }) : /* @__PURE__ */ $("div", { className: u("Controls"), children: [
-    /* @__PURE__ */ $("div", { className: u("Controls__buttons"), children: [
-      /* @__PURE__ */ a(ee, { disabled: m, onClick: r, children: "Anagram helper" }),
-      d && /* @__PURE__ */ a(Ne, { menu: X, text: "Check" }),
-      f && /* @__PURE__ */ a(
-        ee,
-        {
-          onClick: x || (() => {
-            console.log("onCheckClueHash is undefined");
-          }),
-          children: "Check clue hash"
-        }
-      )
+  ) }) : /* @__PURE__ */ k("div", { className: g("Controls"), children: [
+    /* @__PURE__ */ k("div", { className: g("Controls__buttons"), children: [
+      /* @__PURE__ */ a(Q, { disabled: x, onClick: r, children: "Anagram helper" }),
+      d && /* @__PURE__ */ a(Ne, { menu: G, text: "Check" }),
+      /* @__PURE__ */ a(Q, { onClick: f, children: "Check clue hash" })
     ] }),
-    /* @__PURE__ */ a(Ne, { id: "clear-control", menu: A, text: "Clear" })
+    /* @__PURE__ */ a(Ne, { id: "clear-control", menu: J, text: "Clear" })
   ] });
 }
-function Ho() {
+function Do() {
   const [e, o] = ke(
     () => typeof window < "u" ? window.location.hash : ""
   );
@@ -1627,7 +1619,7 @@ function Ho() {
     typeof window < "u" && t !== e && (window.location.hash = t);
   }];
 }
-function Do({
+function Ho({
   allowedHtmlTags: e,
   allowMissingSolutions: o,
   cellMatcher: n,
@@ -1640,46 +1632,46 @@ function Do({
   saveGrid: f,
   stickyClue: x,
   onClueHashCheckResult: m,
-  disableAllReveals: v = !1,
+  disableAllReveals: g = !1,
   disableAnagram: u = !1,
   disableLetterChecks: l = !1,
-  disableGridChecks: E = !1,
-  checkClueHash: y
+  disableGridChecks: S = !1,
+  checkClueHash: $
 }) {
-  const T = W(), [S, G] = ko(
+  const T = B(), [E, I] = ko(
     `crosswords.${r}`,
     Ae(t.dimensions.cols, t.dimensions.rows)
-  ), [I] = Ho(), R = Y((p) => p.clues), z = O((p) => p.cells), U = O((p) => p.select), J = Y((p) => p.select), F = O((p) => p.setCells), q = Y((p) => p.setClues), oe = O((p) => p.checkComplete), k = _.useMemo(() => {
+  ), [A] = Do(), R = X((p) => p.clues), V = z((p) => p.cells), P = z((p) => p.select), F = X((p) => p.select), j = z((p) => p.setCells), ee = X((p) => p.setClues), q = z((p) => p.checkComplete), G = _.useMemo(() => {
     try {
       const p = so({
         cols: t.dimensions.cols,
         rows: t.dimensions.rows,
         entries: t.entries,
-        guessGrid: s ?? S,
+        guessGrid: s ?? E,
         allowMissingSolutions: o
-      }), g = lo(t.entries, p);
+      }), v = lo(t.entries, p);
       return {
         cells: p,
-        clues: g,
+        clues: v,
         error: null
       };
     } catch (p) {
       return { cells: null, clues: null, error: p instanceof Error ? p.message : "An unknown error occurred" };
     }
-  }, [t, s, o]), X = _.useMemo(
-    () => z.length === 0 && k.cells !== null ? k.cells : z,
-    [z, k.cells]
-  ), A = _.useMemo(
-    () => R.length === 0 && k.clues !== null ? k.clues : R,
-    [R, k.clues]
-  ), b = A.find((p) => p.selected), h = (b == null ? void 0 : b.group.length) === 1 ? b : A.find((p) => p.id === (b == null ? void 0 : b.group[0])), [B, M] = _.useState(!1), P = t.dimensions.rows * L + t.dimensions.rows + 1, K = t.dimensions.cols * L + t.dimensions.cols + 1, Q = _.useRef(null);
+  }, [t, s, o]), J = _.useMemo(
+    () => V.length === 0 && G.cells !== null ? G.cells : V,
+    [V, G.cells]
+  ), w = _.useMemo(
+    () => R.length === 0 && G.clues !== null ? G.clues : R,
+    [R, G.clues]
+  ), h = w.find((p) => p.selected), N = (h == null ? void 0 : h.group.length) === 1 ? h : w.find((p) => p.id === (h == null ? void 0 : h.group[0])), [K, W] = _.useState(!1), O = t.dimensions.rows * L + t.dimensions.rows + 1, oe = t.dimensions.cols * L + t.dimensions.cols + 1, Z = _.useRef(null);
   if (_.useEffect(() => {
-    k.cells !== null && (F(k.cells), oe());
-  }, [k.cells]), _.useEffect(() => {
-    k.clues !== null && q(k.clues);
-  }, [k.clues]), _.useEffect(() => {
-    A.find((g) => g.selected) === void 0 && J(I.replace("#", ""));
-  }, [I]), s !== void 0 && !ze(
+    G.cells !== null && (j(G.cells), q());
+  }, [G.cells]), _.useEffect(() => {
+    G.clues !== null && ee(G.clues);
+  }, [G.clues]), _.useEffect(() => {
+    w.find((v) => v.selected) === void 0 && F(A.replace("#", ""));
+  }, [A]), s !== void 0 && !ze(
     s,
     t.dimensions.cols,
     t.dimensions.rows,
@@ -1690,71 +1682,71 @@ function Do({
       {
         message: "Error loading grid",
         style: {
-          height: P,
-          width: K,
+          height: O,
+          width: oe,
           aspectRatio: `${t.dimensions.cols} / ${t.dimensions.rows}`
         }
       }
     ) });
-  if (k.error !== null)
+  if (G.error !== null)
     return /* @__PURE__ */ a("div", { className: T("Crossword"), children: /* @__PURE__ */ a(
       me,
       {
-        message: k.error,
+        message: G.error,
         style: {
-          height: P,
-          width: K,
+          height: O,
+          width: oe,
           aspectRatio: `${t.dimensions.cols} / ${t.dimensions.rows}`
         }
       }
     ) });
-  const V = (p, g) => {
+  const U = (p, v) => {
     c !== void 0 && c({
       pos: p,
-      clueId: g
+      clueId: v
     });
-  }, w = _.useCallback(
+  }, C = _.useCallback(
     (p) => {
-      var D;
-      const g = A.findIndex((Z) => Z.selected), N = p ? g < A.length - 1 ? g + 1 : 0 : g > 0 ? g - 1 : A.length - 1, H = A[N], j = {
-        col: H.position.x,
-        row: H.position.y
+      var H;
+      const v = w.findIndex((Y) => Y.selected), y = p ? v < w.length - 1 ? v + 1 : 0 : v > 0 ? v - 1 : w.length - 1, D = w[y], M = {
+        col: D.position.x,
+        row: D.position.y
       };
-      J(H.id), U(j), V(j, H.id), (D = Q == null ? void 0 : Q.current) == null || D.focus({ preventScroll: !0 });
+      F(D.id), P(M), U(M, D.id), (H = Z == null ? void 0 : Z.current) == null || H.focus({ preventScroll: !0 });
     },
-    [A, J, U, V]
-  ), C = async (p) => {
+    [w, F, P, U]
+  ), b = (p) => {
     p == null || p.preventDefault(), p == null || p.stopPropagation();
-    const g = A.find((D) => D.selected);
-    if (!g) {
+    const v = w.find((H) => H.selected);
+    if (!v) {
       console.warn("Attempted to check hash but no clue selected.");
       return;
     }
-    if (!y) {
+    if (!$) {
       console.warn(
         "Attempted to check hash but `checkClueHash` prop is not provided."
       );
       return;
     }
-    if (!g.solutionPoseidonHash) {
-      console.warn("Selected clue does not have a hash to check against."), m && m(g.id, !1);
+    if (!v.solutionPoseidonHash) {
+      console.warn("Selected clue does not have a hash to check against."), m && m(v.id, !1);
       return;
     }
-    const j = [...re(g.group, X)].sort((D, Z) => g.direction === "across" ? D.pos.col - Z.pos.col : D.pos.row - Z.pos.row).map((D) => D.guess ?? "").join("");
-    console.log("currentGuess for check:", j);
+    const M = [...re(v.group, J)].sort((H, Y) => v.direction === "across" ? H.pos.col - Y.pos.col : H.pos.row - Y.pos.row).map((H) => H.guess ?? "").join("");
+    console.log("currentGuess for check:", M);
     try {
-      const D = await y(
-        g.id,
-        j,
-        g.solutionPoseidonHash
+      const H = $(
+        v.id,
+        M,
+        v.solutionPoseidonHash
       );
-      console.log("Hash check result:", D), m && m(g.id, D);
-    } catch (D) {
-      console.error("Error during hash check:", D), m && m(g.id, !1);
+      console.log("Hash check result:", H), m && m(v.id, H);
+    } catch (H) {
+      console.error("Error during hash check:", H), m && m(v.id, !1);
     }
   };
-  return /* @__PURE__ */ $("div", { className: T("Crossword"), children: [
-    /* @__PURE__ */ $("div", { className: T("Crossword__gridAndControls"), children: [
+  return /* @__PURE__ */ k("div", { className: T("Crossword"), children: [
+    /* @__PURE__ */ k("div", { className: T("Crossword__gridAndControls"), children: [
       /* @__PURE__ */ a(
         "div",
         {
@@ -1762,48 +1754,48 @@ function Do({
           style: {
             maxWidth: t.dimensions.cols * L + t.dimensions.cols + 1
           },
-          children: B && h !== void 0 ? /* @__PURE__ */ a(
+          children: K && N !== void 0 ? /* @__PURE__ */ a(
             yo,
             {
               allowedHtmlTags: e,
-              clue: h,
-              groupCells: re(h.group, X),
-              groupSeparators: io(h.group, A),
-              onClose: () => M(!1),
+              clue: N,
+              groupCells: re(N.group, J),
+              groupSeparators: io(N.group, w),
+              onClose: () => W(!1),
               style: {
-                height: P,
-                maxHeight: P,
-                width: K,
-                maxWidth: K
+                height: O,
+                maxHeight: O,
+                width: oe,
+                maxWidth: oe
               }
             }
-          ) : /* @__PURE__ */ $(ce, { children: [
+          ) : /* @__PURE__ */ k(ce, { children: [
             x !== "never" ? /* @__PURE__ */ a(
               Je,
               {
                 allowedTags: e,
-                num: (h == null ? void 0 : h.group.length) === 1 ? `${h.number}${h.direction.charAt(0)}` : h == null ? void 0 : h.humanNumber,
-                onMoveNext: () => w(!0),
-                onMovePrev: () => w(!1),
+                num: (N == null ? void 0 : N.group.length) === 1 ? `${N.number}${N.direction.charAt(0)}` : N == null ? void 0 : N.humanNumber,
+                onMoveNext: () => C(!0),
+                onMovePrev: () => C(!1),
                 show: x,
-                text: h == null ? void 0 : h.clue
+                text: N == null ? void 0 : N.clue
               }
             ) : null,
             /* @__PURE__ */ a(
               uo,
               {
                 cellMatcher: n,
-                cells: X,
-                clues: A,
+                cells: J,
+                clues: w,
                 cols: t.dimensions.cols,
-                guessGrid: S,
-                inputRef: Q,
+                guessGrid: E,
+                inputRef: Z,
                 onCellChange: i,
                 onCellFocus: c,
                 onComplete: d,
                 rawClues: t.entries,
                 rows: t.dimensions.rows,
-                setGuessGrid: f ?? G
+                setGuessGrid: f ?? I
               }
             )
           ] })
@@ -1812,21 +1804,21 @@ function Do({
       /* @__PURE__ */ a(
         Go,
         {
-          cells: X,
-          clues: A,
+          cells: J,
+          clues: w,
           gridCols: t.dimensions.cols,
           gridRows: t.dimensions.rows,
-          onAnagramHelperClick: () => M((p) => !p),
+          onAnagramHelperClick: () => W((p) => !p),
           onCellChange: i,
           onComplete: d,
-          onCheckClueHash: C,
-          setGuessGrid: f ?? G,
+          onCheckClueHash: b,
+          setGuessGrid: f ?? I,
           solutionsAvailable: t.solutionAvailable,
-          selectedClueHasHash: !!(b != null && b.solutionPoseidonHash),
-          disableAllReveals: v,
+          selectedClueHasHash: !!(h != null && h.solutionPoseidonHash),
+          disableAllReveals: g,
           disableAnagram: u,
           disableLetterChecks: l,
-          disableGridChecks: E
+          disableGridChecks: S
         }
       )
     ] }),
@@ -1834,11 +1826,11 @@ function Do({
       mo,
       {
         allowedHtmlTags: e,
-        entries: A,
-        gridHeight: P,
-        inputRef: Q,
+        entries: w,
+        gridHeight: O,
+        inputRef: Z,
         onCellFocus: c,
-        selectedClueId: b == null ? void 0 : b.id
+        selectedClueId: h == null ? void 0 : h.id
       }
     )
   ] });
@@ -1856,18 +1848,18 @@ function Ro({
   onComplete: f,
   saveGrid: x,
   stickyClue: m = "auto",
-  theme: v = "blue"
+  theme: g = "blue"
 }) {
-  const u = W();
+  const u = B();
   return /* @__PURE__ */ a(
     "div",
     {
       className: ae(
-        u("MyCrossword", `MyCrossword--${v}Theme`),
+        u("MyCrossword", `MyCrossword--${g}Theme`),
         t
       ),
       children: /* @__PURE__ */ a(
-        Do,
+        Ho,
         {
           allowedHtmlTags: e,
           allowMissingSolutions: o,

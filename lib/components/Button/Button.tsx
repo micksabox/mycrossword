@@ -9,7 +9,7 @@ interface ButtonProps {
   className?: string;
   disabled?: boolean;
   id?: string;
-  onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  onClick?: (event?: React.MouseEvent<HTMLButtonElement>) => void;
   onKeyDown?: (event: React.KeyboardEvent<HTMLButtonElement>) => void;
   variant?: 'filled' | 'outlined';
 }
@@ -48,3 +48,4 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 );
 
 export default Button;
+

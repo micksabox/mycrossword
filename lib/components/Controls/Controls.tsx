@@ -26,7 +26,7 @@ interface ControlsProps {
   setGuessGrid: (value: GuessGrid | ((val: GuessGrid) => GuessGrid)) => void;
   solutionsAvailable: boolean;
   selectedClueHasHash?: boolean;
-  onCheckClueHash?: () => void;
+  onCheckClueHash?: (event?: React.MouseEvent<HTMLButtonElement>) => void;
   disableAllReveals?: boolean;
   disableAnagram?: boolean;
   disableLetterChecks?: boolean;
@@ -43,7 +43,7 @@ export default function Controls({
   onComplete,
   setGuessGrid,
   solutionsAvailable,
-  selectedClueHasHash,
+  // selectedClueHasHash,
   onCheckClueHash,
   disableAnagram = false,
   disableGridChecks = false,
@@ -297,18 +297,7 @@ export default function Controls({
           Anagram helper
         </Button>
         {solutionsAvailable && <DropdownButton menu={checkMenu} text="Check" />}
-        {selectedClueHasHash && (
-          <Button
-            onClick={
-              onCheckClueHash ||
-              (() => {
-                console.log('onCheckClueHash is undefined');
-              })
-            }
-          >
-            Check clue hash
-          </Button>
-        )}
+        <Button onClick={onCheckClueHash}>Check clue hash</Button>
       </div>
       <DropdownButton id="clear-control" menu={clearMenu} text="Clear" />
     </div>
