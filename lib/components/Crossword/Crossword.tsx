@@ -243,6 +243,8 @@ export default function Crossword({
         return;
       }
 
+      console.log('clue', clue);
+
       // Extract current guess string for the selected clue
       const groupCells = getGroupCells(clue.group, cells);
       // Ensure cells are sorted correctly based on clue direction
@@ -257,17 +259,22 @@ export default function Crossword({
         .map((cell) => cell.guess ?? ' ')
         .join(''); // Use space for blank?
 
+      console.log('currentGuess', currentGuess);
+
       // Calculate hash of the current guess
-      const calculatedHash = calculateCluePoseidonHash(currentGuess);
+      calculateCluePoseidonHash(currentGuess).then((hash) => {
+        console.log('calculatedHash', hash);
+        // Compare hashes
+        let isValid = false;
+        isValid = hash === clue.solutionPoseidonHash;
 
-      // Compare hashes
-      let isValid = false;
-      isValid = calculatedHash === clue.solutionPoseidonHash;
+        // Trigger callback
+        if (onClueHashCheckResult) {
+          onClueHashCheckResult(clue.id, isValid);
+        }
 
-      // Trigger callback
-      if (onClueHashCheckResult) {
-        onClueHashCheckResult(clue.id, isValid);
-      }
+        return hash;
+      });
 
       // TODO: Optionally provide user feedback based on `isValid`
     },

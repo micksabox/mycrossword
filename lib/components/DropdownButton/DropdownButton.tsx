@@ -16,16 +16,9 @@ interface DropdownButtonProps {
   id?: string;
   menu: DropdownMenuItem[];
   text: string;
-  disabled?: boolean;
 }
 
-function DropdownButton({
-  className,
-  id,
-  menu,
-  text,
-  disabled,
-}: DropdownButtonProps) {
+function DropdownButton({ className, id, menu, text }: DropdownButtonProps) {
   if (menu.length < 2) {
     throw new Error('DropdownButton should have at least 2 menu items');
   }
@@ -91,7 +84,6 @@ function DropdownButton({
         onClick={toggleMenuExpanded}
         ref={buttonRef}
         type="button"
-        disabled={disabled}
       >
         <span>{text}</span>
         <CaretDownIcon className={bem('DropdownButton__dropdownButtonIcon')} />
@@ -107,7 +99,7 @@ function DropdownButton({
           <li key={item.text}>
             <button
               className={bem('DropdownButton__menuItem')}
-              disabled={disabled || item.disabled}
+              disabled={item.disabled}
               onClick={() => {
                 item.onClick();
                 setMenuExpanded(false);

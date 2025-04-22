@@ -92,33 +92,6 @@ export default function Controls({
 
   const checkMenu = [
     {
-      disabled: selectedCell === undefined || disableLetterChecks,
-      onClick: () => {
-        if (selectedCell === undefined) {
-          return;
-        }
-
-        if (selectedCell.guess !== selectedCell.val) {
-          cellChange(selectedCell, undefined);
-
-          // merge in selectedCell with its letter cleared
-          const updatedCells = mergeCell(
-            { ...selectedCell, guess: undefined },
-            cells,
-          );
-
-          setCells(updatedCells);
-
-          // mark across and/or down clue as unanswered
-          answerSomeClues(selectedCell.clueIds, false);
-
-          // update guesses in local storage
-          updateGuessGrid(updatedCells);
-        }
-      },
-      text: 'Check letter',
-    },
-    {
       disabled: selectedClue === undefined,
       onClick: () => {
         if (selectedClue !== undefined) {
@@ -160,102 +133,6 @@ export default function Controls({
       onClick: () => setShowCheckGridConfirm(true),
       text: 'Check grid',
       disabled: disableGridChecks,
-    },
-  ];
-
-  const revealMenu = [
-    {
-      disabled: selectedCell === undefined || disableAllReveals,
-      onClick: () => {
-        if (
-          selectedCell === undefined ||
-          selectedCell.guess === selectedCell.val
-        ) {
-          return;
-        }
-
-        cellChange(selectedCell, selectedCell.val);
-
-        // merge in selectedCell with its letter revealed
-        const updatedCells = mergeCell(
-          { ...selectedCell, guess: selectedCell.val },
-          cells,
-        );
-
-        setCells(updatedCells);
-
-        if (onComplete !== undefined) {
-          if (checkComplete() === true) {
-            onComplete();
-          }
-        }
-
-        // if all cells are populated, mark clue as answered
-        selectedCell.clueIds.forEach((clueId) => {
-          const clue = clues.find((c) => c.id === clueId)!;
-          const populated = isCluePopulated(clue, updatedCells);
-
-          if (populated) {
-            answerSomeClues(clue.group, true);
-          }
-        });
-
-        // update guesses in local storage
-        updateGuessGrid(updatedCells);
-      },
-      text: 'Reveal letter',
-    },
-    {
-      disabled: selectedClue === undefined || disableAllReveals,
-      onClick: () => {
-        if (selectedClue === undefined) {
-          return;
-        }
-
-        // handle cell changes
-        if (onCellChange !== undefined) {
-          const groupCells = getGroupCells(selectedClue.group, cells);
-          groupCells.forEach((cell) => {
-            if (cell.val !== cell.guess) {
-              cellChange(cell, cell.val);
-            }
-          });
-        }
-
-        const updatedCells = cells.map((cell) => {
-          const intersection = selectedClue.group.filter((clueId) =>
-            cell.clueIds.includes(clueId),
-          );
-
-          if (intersection.length > 0) {
-            return {
-              ...cell,
-              guess: cell.val,
-            };
-          }
-
-          return cell;
-        });
-
-        setCells(updatedCells);
-
-        if (onComplete !== undefined) {
-          if (checkComplete() === true) {
-            onComplete();
-          }
-        }
-
-        updateAnsweredForCrossingClues(selectedClue, updatedCells);
-
-        // update guesses in local storage
-        updateGuessGrid(updatedCells);
-      },
-      text: 'Reveal word',
-    },
-    {
-      onClick: () => setShowRevealGridConfirm(true),
-      text: 'Reveal grid',
-      disabled: disableAllReveals,
     },
   ];
 
@@ -421,22 +298,16 @@ export default function Controls({
         <Button disabled={disableAnagram} onClick={onAnagramHelperClick}>
           Anagram helper
         </Button>
-        {solutionsAvailable && (
-          <DropdownButton
-            menu={revealMenu}
-            text="Reveal"
-            disabled={disableAllReveals}
-          />
-        )}
-        {solutionsAvailable && (
-          <DropdownButton
-            menu={checkMenu}
-            text="Check"
-            disabled={disableGridChecks}
-          />
-        )}
+        {solutionsAvailable && <DropdownButton menu={checkMenu} text="Check" />}
         {selectedClueHasHash && (
-          <Button onClick={onCheckClueHash || (() => {})}>
+          <Button
+            onClick={
+              onCheckClueHash ||
+              (() => {
+                console.log('onCheckClueHash is undefined');
+              })
+            }
+          >
             Check clue hash
           </Button>
         )}
