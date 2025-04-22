@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { blankNeighbours, mergeCell } from '~/utils/cell';
+import { blankNeighbours } from '~/utils/cell';
 import {
   getCrossingClueIds,
   getGroupCells,
@@ -45,13 +45,11 @@ export default function Controls({
   solutionsAvailable,
   selectedClueHasHash,
   onCheckClueHash,
-  disableAllReveals = false,
   disableAnagram = false,
-  disableLetterChecks = false,
   disableGridChecks = false,
 }: ControlsProps) {
   const bem = getBem('Controls');
-  const selectedCell = cells.find((cell) => cell.selected);
+  // const selectedCell = cells.find((cell) => cell.selected);
   const selectedClue = clues.find((clue) => clue.selected);
   const [showCheckGridConfirm, setShowCheckGridConfirm] = React.useState(false);
   const [showRevealGridConfirm, setShowRevealGridConfirm] =

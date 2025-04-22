@@ -17,5 +17,5 @@ interface ControlsProps {
     disableLetterChecks?: boolean;
     disableGridChecks?: boolean;
 }
-export default function Controls({ cells, clues, gridCols, gridRows, onAnagramHelperClick, onCellChange, onComplete, setGuessGrid, solutionsAvailable, selectedClueHasHash, onCheckClueHash, disableAllReveals, disableAnagram, disableLetterChecks, disableGridChecks, }: ControlsProps): import("react/jsx-runtime").JSX.Element;
+export default function Controls({ cells, clues, gridCols, gridRows, onAnagramHelperClick, onCellChange, onComplete, setGuessGrid, solutionsAvailable, selectedClueHasHash, onCheckClueHash, disableAnagram, disableGridChecks, }: ControlsProps): import("react/jsx-runtime").JSX.Element;
 export {};

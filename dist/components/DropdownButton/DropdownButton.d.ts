@@ -10,8 +10,7 @@ interface DropdownButtonProps {
     id?: string;
     menu: DropdownMenuItem[];
     text: string;
-    disabled?: boolean;
 }
-declare function DropdownButton({ className, id, menu, text, disabled, }: DropdownButtonProps): import("react/jsx-runtime").JSX.Element;
+declare function DropdownButton({ className, id, menu, text }: DropdownButtonProps): import("react/jsx-runtime").JSX.Element;
 declare const _default: React.MemoExoticComponent<typeof DropdownButton>;
 export default _default;

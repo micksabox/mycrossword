@@ -1,1 +1,1 @@
-export declare const calculateCluePoseidonHash: (solution: string) => string;
+export declare const calculateCluePoseidonHash: (solution: string) => Promise<string>;

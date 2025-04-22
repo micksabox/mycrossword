@@ -17,6 +17,7 @@ interface CrosswordProps {
     disableAnagram?: boolean;
     disableLetterChecks?: boolean;
     disableGridChecks?: boolean;
+    checkClueHash?: (clueId: string, currentGuess: string, solutionHash?: string | null) => Promise<boolean>;
 }
-export default function Crossword({ allowedHtmlTags, allowMissingSolutions, cellMatcher, data, id, loadGrid, onCellChange, onCellFocus, onComplete, saveGrid, stickyClue, onClueHashCheckResult, disableAllReveals, disableAnagram, disableLetterChecks, disableGridChecks, }: CrosswordProps): import("react/jsx-runtime").JSX.Element;
+export default function Crossword({ allowedHtmlTags, allowMissingSolutions, cellMatcher, data, id, loadGrid, onCellChange, onCellFocus, onComplete, saveGrid, stickyClue, onClueHashCheckResult, disableAllReveals, disableAnagram, disableLetterChecks, disableGridChecks, checkClueHash, }: CrosswordProps): import("react/jsx-runtime").JSX.Element;
 export {};

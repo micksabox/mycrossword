@@ -27,8 +27,6 @@ import Controls from '~/components/Controls/Controls';
 import useLocationHash from '~/hooks/useLocationHash/useLocationHash';
 import './Crossword.css';
 
-import { calculateCluePoseidonHash } from '~/utils/hash';
-
 interface CrosswordProps {
   allowedHtmlTags: string[];
   allowMissingSolutions: boolean;
@@ -46,6 +44,11 @@ interface CrosswordProps {
   disableAnagram?: boolean;
   disableLetterChecks?: boolean;
   disableGridChecks?: boolean;
+  checkClueHash?: (
+    clueId: string,
+    currentGuess: string,
+    solutionHash?: string | null,
+  ) => Promise<boolean>;
 }
 
 export default function Crossword({
@@ -65,6 +68,7 @@ export default function Crossword({
   disableAnagram = false,
   disableLetterChecks = false,
   disableGridChecks = false,
+  checkClueHash,
 }: CrosswordProps) {
   const bem = getBem('Crossword');
   const [guessGrid, setGuessGrid] = useLocalStorage<GuessGrid>(
@@ -231,23 +235,34 @@ export default function Crossword({
   );
 
   const handleCheckSelectedClueHash = React.useCallback(
-    (event?: React.MouseEvent<HTMLButtonElement>) => {
+    async (event?: React.MouseEvent<HTMLButtonElement>) => {
       event?.preventDefault();
       event?.stopPropagation();
 
       const clue = clues.find((c) => c.selected);
-      if (!clue || !clue.solutionPoseidonHash) {
+      if (!clue) {
+        console.warn('Attempted to check hash but no clue selected.');
+        return;
+      }
+      if (!checkClueHash) {
         console.warn(
-          'Attempted to check hash for clue without hash or no clue selected.',
+          'Attempted to check hash but `checkClueHash` prop is not provided.',
         );
         return;
       }
-
-      console.log('clue', clue);
+      if (!clue.solutionPoseidonHash) {
+        // If there's no hash to check against (e.g., older crosswords),
+        // perhaps indicate this state differently or disable the check.
+        // For now, just log and return.
+        console.warn('Selected clue does not have a hash to check against.');
+        if (onClueHashCheckResult) {
+          onClueHashCheckResult(clue.id, false); // Indicate failure or inability to check
+        }
+        return;
+      }
 
       // Extract current guess string for the selected clue
       const groupCells = getGroupCells(clue.group, cells);
-      // Ensure cells are sorted correctly based on clue direction
       const sortedGroupCells = [...groupCells].sort((a, b) => {
         if (clue.direction === 'across') {
           return a.pos.col - b.pos.col;
@@ -256,29 +271,35 @@ export default function Crossword({
         }
       });
       const currentGuess = sortedGroupCells
-        .map((cell) => cell.guess ?? ' ')
-        .join(''); // Use space for blank?
+        .map((cell) => cell.guess ?? '') // Use empty string for blank cells
+        .join('');
 
-      console.log('currentGuess', currentGuess);
+      console.log('currentGuess for check:', currentGuess);
 
-      // Calculate hash of the current guess
-      calculateCluePoseidonHash(currentGuess).then((hash) => {
-        console.log('calculatedHash', hash);
-        // Compare hashes
-        let isValid = false;
-        isValid = hash === clue.solutionPoseidonHash;
+      // Calculate hash of the current guess using the provided function
+      try {
+        const isValid = await checkClueHash(
+          clue.id,
+          currentGuess,
+          clue.solutionPoseidonHash,
+        );
+        console.log('Hash check result:', isValid);
 
         // Trigger callback
         if (onClueHashCheckResult) {
           onClueHashCheckResult(clue.id, isValid);
         }
-
-        return hash;
-      });
+      } catch (error) {
+        console.error('Error during hash check:', error);
+        // Optionally trigger callback with error state or false
+        if (onClueHashCheckResult) {
+          onClueHashCheckResult(clue.id, false);
+        }
+      }
 
       // TODO: Optionally provide user feedback based on `isValid`
     },
-    [clues, cells, onClueHashCheckResult],
+    [clues, cells, onClueHashCheckResult, checkClueHash],
   );
 
   return (
